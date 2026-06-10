@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Taxas Variáveis e Inflação — Material Didático</title>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']], processEscapes: true, tags: 'none' },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] },
+  startup: { typeset: false }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script>window.addEventListener('load', function(){ MathJax.typesetPromise(); });</script>
+<style>
+  :root{
+    --azul:#0F3D6E; --azul2:#1B6FB8; --cinza:#F5F7FA; --cinza2:#E5EAF1;
+    --verde:#1B7F4F; --amarelo:#F7F1D6; --vermelho:#B23A48; --borda:#CBD5E1;
+    --texto:#1F2937;
+  }
+  *{box-sizing:border-box}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    color:var(--texto);line-height:1.65;margin:0;background:#fff;}
+  .container{max-width:920px;margin:0 auto;padding:32px 28px 80px;}
+  header{background:linear-gradient(135deg,var(--azul) 0%,var(--azul2) 100%);
+    color:white;padding:36px 28px;margin:-32px -28px 28px;border-radius:0 0 14px 14px;}
+  header .eyebrow{opacity:.8;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;}
+  header h1{margin:6px 0 4px;font-size:2.0rem;font-weight:700;}
+  header p{margin:0;opacity:.92}
+  h2{color:var(--azul);border-bottom:3px solid var(--azul2);padding-bottom:6px;margin-top:42px;font-size:1.55rem;}
+  h3{color:var(--azul2);margin-top:28px;font-size:1.2rem;}
+  h4{color:var(--texto);margin-top:18px;font-size:1.05rem;}
+  p,li{font-size:1rem;}
+  ul,ol{padding-left:22px}
+  li{margin-bottom:6px}
+  .toc{background:var(--cinza);border:1px solid var(--cinza2);border-radius:10px;padding:18px 22px;margin:18px 0 6px;}
+  .toc h3{margin-top:0;color:var(--azul)}
+  .toc ol{margin:0}
+  .toc a{color:var(--azul);text-decoration:none}
+  .toc a:hover{text-decoration:underline}
+  .destaque{background:var(--amarelo);border-left:5px solid #E0B400;padding:14px 18px;border-radius:6px;margin:16px 0;}
+  .conceito{background:#EAF3FB;border-left:5px solid var(--azul2);padding:14px 18px;border-radius:6px;margin:16px 0;}
+  .conceito h4{margin-top:0;color:var(--azul)}
+  .atencao{background:#FBEAEA;border-left:5px solid var(--vermelho);padding:14px 18px;border-radius:6px;margin:16px 0;}
+  .atencao h4{margin-top:0;color:var(--vermelho)}
+  .exemplo{background:#EFF8F2;border-left:5px solid var(--verde);padding:16px 20px;border-radius:6px;margin:18px 0;}
+  .exemplo h4{margin-top:0;color:var(--verde)}
+  .formula{background:#FAFAFA;border:1px solid var(--cinza2);border-radius:8px;padding:14px;text-align:center;margin:14px 0;}
+  table{border-collapse:collapse;width:100%;margin:14px 0;font-size:.95rem;}
+  th,td{border:1px solid var(--borda);padding:8px 10px;text-align:left;}
+  th{background:var(--azul);color:white;font-weight:600;}
+  tr:nth-child(even) td{background:#F8FAFC;}
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  @media(max-width:680px){.grid-2{grid-template-columns:1fr}}
+  .card{background:white;border:1px solid var(--cinza2);border-radius:10px;padding:14px 16px;}
+  .card h4{margin-top:0}
+  .passo{background:#F5F7FA;border-left:4px solid var(--azul2);padding:10px 14px;border-radius:4px;margin:10px 0;font-size:.97rem;}
+  .passo strong{color:var(--azul)}
+  .nota{font-size:.88rem;color:#555;font-style:italic;}
+  .planilha td:first-child{font-weight:600;background:#F0F4FA;}
+  .planilha tr.total > td{background:#E8F0FC !important;font-weight:700;}
+  .planilha tr.destaque-row > td{background:#E8F7EE !important;font-weight:700;color:var(--verde);}
+  .planilha td.neg{color:var(--vermelho)}
+  .questao{border:2px solid var(--azul2);border-radius:10px;padding:20px 22px;margin:20px 0;background:#fff;}
+  .questao-num{background:var(--azul2);color:white;border-radius:999px;padding:2px 12px;font-size:.85rem;font-weight:700;display:inline-block;margin-bottom:10px;}
+  .gabarito{background:#F0FAF4;border:2px solid var(--verde);border-radius:10px;padding:20px 22px;margin:20px 0;}
+  .gabarito h3{color:var(--verde);margin-top:0;border-bottom:2px solid var(--verde);padding-bottom:6px;}
+  .gabarito-item{margin-bottom:20px;padding-bottom:16px;border-bottom:1px dashed #9ADBB8;}
+  .gabarito-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+  .cenario-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0;}
+  .cenario{border:1px solid var(--borda);border-radius:8px;padding:12px 14px;font-size:.92rem;}
+  .cenario .tag{background:var(--azul);color:white;font-size:.74rem;font-weight:700;padding:2px 8px;border-radius:999px;display:inline-block;margin-bottom:6px;}
+  .cenario p{margin:0;color:#444;}
+  details.resolucao{margin-top:12px;}
+  details.resolucao > summary{cursor:pointer;background:var(--azul2);color:white;padding:9px 16px;border-radius:6px;font-weight:600;font-size:.93rem;list-style:none;display:flex;align-items:center;gap:8px;user-select:none;transition:background .15s;}
+  details.resolucao > summary::-webkit-details-marker{display:none;}
+  details.resolucao > summary::before{content:"▶";font-size:.72rem;transition:transform .2s;flex-shrink:0;}
+  details.resolucao[open] > summary::before{transform:rotate(90deg);}
+  details.resolucao > summary:hover{background:var(--azul);}
+  details.resolucao .resolucao-corpo{border:1px solid var(--cinza2);border-top:none;border-radius:0 0 6px 6px;padding:14px 16px 10px;background:#FAFBFC;}
+  @media print{
+    header{background:var(--azul) !important;color:white !important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    details.resolucao > summary{background:var(--azul2) !important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <div class="eyebrow">Finanças Corporativas I — UFC / FEAAC</div>
+  <h1>Unidade 4: Taxas Variáveis e Inflação</h1>
+  <p>TMA variável · Efeito da inflação · Taxas específicas de desconto</p>
+</header>
+
+<div class="toc">
+  <h3>Sumário</h3>
+  <ol>
+    <li><a href="#s1">Introdução</a></li>
+    <li><a href="#s2">TMA Variável</a></li>
+    <li><a href="#s3">Efeito da Inflação</a></li>
+    <li><a href="#s4">Taxas Específicas de Desconto</a></li>
+    <li><a href="#questoes">Questões para Sala de Aula</a></li>
+    <li><a href="#gabarito">Gabarito</a></li>
+  </ol>
+</div>
+
+<!-- ============ SEÇÃO 1 ============ -->
+<h2 id="s1">1. Introdução</h2>
+
+<p>As análises de investimento vistas até agora assumiram uma TMA constante ao longo de toda a vida do projeto, e preços estáveis (sem inflação). Na prática, essas premissas raramente se mantêm:</p>
+
+<div class="grid-2">
+  <div class="card">
+    <h4>Taxas de mercado variáveis</h4>
+    <p>As taxas de juros variam diariamente nos mercados de capitais. A TMA de um projeto de longo prazo pode ser diferente em cada período do horizonte de análise.</p>
+  </div>
+  <div class="card">
+    <h4>Inflação diferenciada</h4>
+    <p>Mesmo que se ignore a inflação "média", preços individuais variam de forma assimétrica: produtos tecnológicos tendem a baixar; mão de obra, a subir. Essa variação diferenciada impacta o VPL.</p>
+  </div>
+</div>
+
+<div class="destaque">
+  <strong>Qual método usar com TMA variável?</strong> A TIR não é adequada — é difícil comparar uma única TIR com várias TMAs. O VUE também é problemático com fluxos e taxas variáveis. O <strong>VPL</strong> é o método mais robusto para ambas as situações.
+</div>
+
+<!-- ============ SEÇÃO 2 ============ -->
+<h2 id="s2">2. TMA Variável</h2>
+
+<p>Quando a TMA varia ao longo da vida do projeto, a fórmula do VPL se adapta: em vez de descontar pelo mesmo fator \((1+i)^{-j}\), aplica-se o produto das taxas de cada período:</p>
+
+<div class="formula">
+  \[VPL = F_0 + \sum_{j=1}^{n} \frac{F_j}{\prod_{e=1}^{j}(1+i_e)}\]
+  <p style="font-size:.9rem;margin-top:8px">onde \(i_e\) é a TMA do período \(e\). No caso de taxa constante, \(\prod(1+i_e) = (1+i)^j\) e a fórmula se reduz à forma clássica.</p>
+</div>
+
+<h3>Duas abordagens</h3>
+<div class="grid-2">
+  <div class="card">
+    <h4>1. Reaplicação à TMA vigente</h4>
+    <p>Método convencional: os fluxos positivos são reaplicados à própria TMA vigente em cada período. O desconto usa o produto cumulativo das TMAs.</p>
+  </div>
+  <div class="card">
+    <h4>2. Reaplicação a taxas diferenciadas</h4>
+    <p>Método modificado: os fluxos positivos são capitalizados a uma taxa de reaplicação externa (ex: um projeto paralelo já identificado), e o valor futuro resultante é descontado pelas TMAs variáveis.</p>
+  </div>
+</div>
+
+<!-- EXEMPLO 1 -->
+<div class="exemplo">
+  <h4>Exemplo 1 — TMA crescendo de 7% a 9% a.a.</h4>
+  <p>Fluxo de caixa: F₀ = −100, F₁ = F₂ = F₃ = 40. A TMA hoje é de 7% a.a. e cresce linearmente até 9% a.a. ao final do projeto. Calcule o VPL pelas duas abordagens.</p>
+
+  <table>
+    <thead><tr><th>Período</th><th>0</th><th>1</th><th>2</th><th>3</th></tr></thead>
+    <tbody>
+      <tr><td>Fluxo de Caixa</td><td class="neg">−100</td><td>40</td><td>40</td><td>40</td></tr>
+      <tr><td>TMA do período</td><td>—</td><td>7%</td><td>8%</td><td>9%</td></tr>
+    </tbody>
+  </table>
+
+  <details class="resolucao">
+  <summary>Ver resolução</summary>
+  <div class="resolucao-corpo">
+
+  <div class="passo"><strong>Abordagem 1 — Reaplicação à TMA vigente (VPL = R$ 3,75)</strong><br>
+  Desconto acumulado: \(VP_1 = \frac{40}{1{,}07} = 37{,}38\) | \(VP_2 = \frac{40}{1{,}07 \times 1{,}08} = \frac{40}{1{,}1556} = 34{,}61\) | \(VP_3 = \frac{40}{1{,}07 \times 1{,}08 \times 1{,}09} = \frac{40}{1{,}2596} = 31{,}76\)<br>
+  \[VPL = -100 + 37{,}38 + 34{,}61 + 31{,}76 = \mathbf{R\$\,3{,}75}\]</div>
+
+  <div class="passo"><strong>Comparação: análise simplificada com TMA fixa de 7% (VPL = R$ 4,97)</strong><br>
+  \(VP_1=37{,}38\) | \(VP_2 = \frac{40}{1{,}07^2}=34{,}94\) | \(VP_3 = \frac{40}{1{,}07^3}=32{,}65\)<br>
+  \[VPL = -100 + 37{,}38 + 34{,}94 + 32{,}65 = \mathbf{R\$\,4{,}97}\]
+  Ignorar a variação da TMA superestima o projeto em R$ 1,22.</div>
+
+  </div>
+  </details>
+</div>
+
+<!-- EXEMPLO 2 -->
+<div class="exemplo">
+  <h4>Exemplo 2 — Reaplicação a taxas diferenciadas (VPL Modificado)</h4>
+  <p>Mesmo fluxo do Exemplo 1. A empresa já tem uma oportunidade de reaplicação dos fluxos positivos a <strong>8,5% a.a.</strong> Qual o VPL Modificado?</p>
+
+  <details class="resolucao">
+  <summary>Ver resolução</summary>
+  <div class="resolucao-corpo">
+
+  <div class="passo"><strong>Passo 1 — Capitalizar os fluxos positivos à taxa de reaplicação (8,5%)</strong><br>
+  Levar todos ao final do projeto (t = 3):<br>
+  \[FV = 40 \times 1{,}085^2 + 40 \times 1{,}085 + 40 = 40 \times (1{,}1772 + 1{,}085 + 1) = 40 \times 3{,}2622 = \mathbf{R\$\,130{,}49}\]</div>
+
+  <div class="passo"><strong>Passo 2 — Descontar o FV pelas TMAs variáveis</strong><br>
+  \[VPLM = -100 + \frac{130{,}49}{1{,}07 \times 1{,}08 \times 1{,}09} = -100 + \frac{130{,}49}{1{,}2596} = -100 + 103{,}60 = \mathbf{R\$\,3{,}60}\]</div>
+
+  <div class="passo"><strong>Interpretação:</strong> Com reaplicação a 8,5% (pouco acima das TMAs médias), o VPLM (3,60) fica próximo ao VPL convencional (3,75). Quanto maior a taxa de reaplicação em relação à TMA, maior o benefício do método modificado.</div>
+
+  </div>
+  </details>
+</div>
+
+<!-- ============ SEÇÃO 3 ============ -->
+<h2 id="s3">3. Efeito da Inflação</h2>
+
+<p>A inflação — aumento geral dos preços — pode ser ignorada na análise de projetos <strong>somente se todos os preços subirem na mesma proporção</strong>. Na prática, isso raramente ocorre por dois motivos:</p>
+<ul>
+  <li><strong>Necessidade de capital de giro:</strong> com inflação alta, as vendas a prazo podem não cobrir o custo de reposição dos estoques, gerando necessidade adicional de financiamento.</li>
+  <li><strong>Inflação diferenciada:</strong> salários, matérias-primas e preços de venda sobem em ritmos diferentes, distorcendo o fluxo de caixa real.</li>
+</ul>
+
+<h3>Dois tipos de fluxo de caixa</h3>
+<div class="grid-2">
+  <div class="card">
+    <h4>Fluxos a preços de hoje (reais)</h4>
+    <p>Valores expressos em poder de compra da data zero. Precisam ser reajustados pela inflação projetada para refletir os valores efetivos do futuro.</p>
+  </div>
+  <div class="card">
+    <h4>Fluxos a preços correntes (nominais)</h4>
+    <p>Valores já incluem a correção monetária esperada — são os valores efetivos que serão pagos ou recebidos. Já embutem a inflação projetada.</p>
+  </div>
+</div>
+
+<h3>Equação de Fisher</h3>
+<div class="formula">
+  \[(1 + i_g) = (1 + i_r)(1 + f)\]
+  <p style="font-size:.9rem;margin-top:6px">onde \(i_g\) = TMA global (nominal), \(i_r\) = TMA real, \(f\) = taxa de inflação do período.<br>
+  Ou: \(i_g \approx i_r + f\) (aproximação para taxas baixas)</p>
+</div>
+
+<h3>Quatro situações possíveis</h3>
+<div class="cenario-grid">
+  <div class="cenario">
+    <div class="tag">Caso 1</div>
+    <p><strong>Fluxo real + TMA real</strong><br>Aplicação direta: descontar o fluxo a preços de hoje pela TMA real. O resultado é o VPL em poder de compra atual. ✓ Consistente</p>
+  </div>
+  <div class="cenario">
+    <div class="tag">Caso 2</div>
+    <p><strong>Fluxo real + TMA global</strong><br>Converter: atualizar os fluxos pela inflação projetada (tornando-os nominais) e descontar pela TMA global. ✓ Consistente se inflação uniforme</p>
+  </div>
+  <div class="cenario">
+    <div class="tag">Caso 3</div>
+    <p><strong>Fluxo corrente + TMA global</strong><br>Aplicação direta: descontar os fluxos nominais pela TMA nominal. Mais comum na prática. ✓ Consistente</p>
+  </div>
+  <div class="cenario">
+    <div class="tag">Caso 4</div>
+    <p><strong>Fluxo corrente + TMA real</strong><br>Converter: deflacionar os fluxos nominais pela inflação e descontar pela TMA real. ✓ Consistente se inflação uniforme</p>
+  </div>
+</div>
+
+<div class="atencao">
+  <h4>Cuidado: consistência é tudo</h4>
+  <p>O erro mais comum é misturar fluxos nominais com TMA real (ou vice-versa). <strong>Fluxo real → desconto pela TMA real. Fluxo nominal → desconto pela TMA nominal.</strong> Os quatro casos, se aplicados corretamente, devem produzir o mesmo VPL.</p>
+</div>
+
+<!-- ============ SEÇÃO 4 ============ -->
+<h2 id="s4">4. Taxas Específicas de Desconto</h2>
+
+<p>Quando <strong>componentes individuais</strong> do fluxo de caixa (receitas, custos, salários) crescem ou decrescem a taxas diferentes da inflação geral, utiliza-se o conceito de <strong>taxa específica de desconto</strong> \(i_e\).</p>
+
+<div class="conceito">
+  <h4>Série geométrica e taxa específica</h4>
+  <p>Seja \(H\) o valor de um componente no período 1, crescendo à taxa \(\theta\) por período (negativa = declínio). Seu valor presente é:</p>
+  <div class="formula" style="text-align:left;margin-top:8px">
+    \[VP = H \cdot \frac{(1+i_e)^n - 1}{i_e \cdot (1+i_e)^n} = H \cdot (P/A;\,i_e;\,n)\]
+    <p style="font-size:.9rem;margin-top:6px">onde a taxa específica \(i_e\) engloba a TMA e a taxa de variação do componente:</p>
+    \[i_e = \frac{i - \theta}{1 + \theta} \quad \Longleftrightarrow \quad (1+i_e)(1+\theta) = (1+i)\]
+    <p style="font-size:.9rem;margin-top:4px">\(i\) = TMA real, \(\theta\) = taxa de variação real do componente por período.</p>
+  </div>
+  <p><em>Intuição:</em> se o componente cresce mais rápido que a TMA (\(\theta > i\)), \(i_e\) fica negativo — o VP é maior do que uma série uniforme equivalente.</p>
+</div>
+
+<!-- EXEMPLO 3 -->
+<div class="exemplo">
+  <h4>Exemplo 3 — Lançamento de modem com preços diferenciados</h4>
+
+  <div style="display:flex;align-items:center;gap:16px;background:#F0F6FF;border:1px solid var(--cinza2);border-radius:8px;padding:10px 14px;margin-bottom:14px;">
+    <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Router/modem icon -->
+      <rect x="8" y="24" width="36" height="18" rx="3" fill="#1B6FB8" opacity=".85"/>
+      <rect x="12" y="28" width="5" height="5" rx="1" fill="#93C5FD" opacity=".8"/>
+      <rect x="20" y="28" width="5" height="5" rx="1" fill="#93C5FD" opacity=".5"/>
+      <rect x="28" y="28" width="5" height="5" rx="1" fill="#93C5FD" opacity=".3"/>
+      <circle cx="36" cy="30" r="3" fill="#22C55E" opacity=".9"/>
+      <line x1="20" y1="24" x2="18" y2="14" stroke="#94A3B8" stroke-width="2" stroke-linecap="round"/>
+      <line x1="28" y1="24" x2="28" y2="10" stroke="#94A3B8" stroke-width="2" stroke-linecap="round"/>
+      <line x1="36" y1="24" x2="38" y2="14" stroke="#94A3B8" stroke-width="2" stroke-linecap="round"/>
+      <rect x="8" y="42" width="36" height="4" rx="2" fill="#0F3D6E" opacity=".3"/>
+      <!-- Down arrow (price falling) -->
+      <text x="44" y="36" font-size="12" fill="#EF4444">↓</text>
+      <text x="1" y="36" font-size="12" fill="#22C55E">↑</text>
+    </svg>
+    <div style="font-size:.88rem;color:#444;line-height:1.4;">
+      <strong style="color:var(--azul);font-size:.93rem;display:block;margin-bottom:2px;">Empresa de Informática — TMA real = 20% a.a. | n = 5 anos</strong>
+      Preço cai 3%/ano (concorrência). Custos variáveis sobem 5%/ano. Demanda estável: 500 unidades/ano.
+    </div>
+  </div>
+
+  <table>
+    <thead><tr><th>Parâmetro</th><th>Valor</th></tr></thead>
+    <tbody>
+      <tr><td>Investimento inicial (I)</td><td>R$ 400.000</td></tr>
+      <tr><td>Preço de venda (t=1)</td><td>R$ 500/unid → declining 3%/ano</td></tr>
+      <tr><td>Custo variável (t=1)</td><td>R$ 100/unid → increasing 5%/ano</td></tr>
+      <tr><td>Demanda anual</td><td>500 unidades</td></tr>
+      <tr><td>Valor residual (t=5)</td><td>R$ 50.000</td></tr>
+      <tr><td>TMA real</td><td>20% a.a.</td></tr>
+    </tbody>
+  </table>
+
+  <details class="resolucao">
+  <summary>Ver resolução</summary>
+  <div class="resolucao-corpo">
+
+  <div class="passo"><strong>Fluxos no período 1:</strong><br>
+  Receita: 500 un × R$ 500 = <strong>R$ 250.000</strong> (θ = −3% a.a.)<br>
+  Custos variáveis: 500 un × R$ 100 = <strong>R$ 50.000</strong> (θ = +5% a.a.)</div>
+
+  <div class="passo"><strong>Taxas específicas de desconto:</strong><br>
+  \[i_{e,\text{receita}} = \frac{1{,}20}{1 + (-0{,}03)} - 1 = \frac{1{,}20}{0{,}97} - 1 = 0{,}2371 = 23{,}71\%\]
+  \[i_{e,\text{custos}} = \frac{1{,}20}{1{,}05} - 1 = 0{,}1429 = 14{,}29\%\]
+  <em>Receitas caindo → ie maior → desconto mais agressivo. Custos subindo → ie menor → VP dos custos maior.</em></div>
+
+  <div class="passo"><strong>Valor Presente de cada componente</strong> usando \((P/A;\,i_e;\,5)\):<br>
+  \[VP_{\text{receitas}} = 250.000 \times \frac{(1{,}2371)^5 - 1}{0{,}2371 \times (1{,}2371)^5} = 250.000 \times \frac{1{,}8987}{0{,}6876} = 250.000 \times 2{,}761 = \mathbf{R\$\,690.250}\]
+  \[VP_{\text{custos}} = 50.000 \times \frac{(1{,}1429)^5 - 1}{0{,}1429 \times (1{,}1429)^5} = 50.000 \times \frac{0{,}9497}{0{,}2787} = 50.000 \times 3{,}408 = \mathbf{R\$\,170.400}\]
+  \[VP_{\text{residual}} = \frac{50.000}{(1{,}20)^5} = \frac{50.000}{2{,}4883} = \mathbf{R\$\,20.094}\]</div>
+
+  <div class="passo"><strong>VPL:</strong>
+  \[VPL = -400.000 + 690.250 - 170.400 + 20.094 = \mathbf{R\$\,139.944}\]
+  VPL &gt; 0 → <strong>projeto viável.</strong> A TMA real de 20% é superada, mesmo considerando queda de preços e aumento de custos.</div>
+
+  <div class="passo"><strong>Observe:</strong> Se ignorássemos as variações diferenciais e tratássemos tudo como série uniforme:<br>
+  Margem bruta/unid = R$ 400 × 500 = R$ 200.000/ano constante<br>
+  VP = 200.000 × (P/A; 20%; 5) = 200.000 × 2,9906 = 598.120<br>
+  VPL "ingênuo" = −400.000 + 598.120 + 20.094 = R$ 218.214 — <em>superestima o projeto em ≈ R$ 78k</em> ao ignorar que os custos crescem mais que as receitas.</div>
+
+  </div>
+  </details>
+</div>
+
+<!-- ============ QUESTÕES ============ -->
+<h2 id="questoes">Questões para Sala de Aula</h2>
+
+<div class="questao">
+  <span class="questao-num">Questão 1 — TMA Variável</span>
+  <p>Uma empresa avalia um projeto com o seguinte fluxo de caixa:</p>
+  <table>
+    <thead><tr><th>Período</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th></tr></thead>
+    <tbody>
+      <tr><td>Fluxo de Caixa (R$ mil)</td><td>−200</td><td>80</td><td>80</td><td>80</td><td>80</td></tr>
+      <tr><td>TMA do período</td><td>—</td><td>10%</td><td>11%</td><td>12%</td><td>13%</td></tr>
+    </tbody>
+  </table>
+  <p>a) Calcule o VPL pela abordagem convencional (reaplicação à TMA vigente).<br>
+  b) Compare com o VPL calculado usando a TMA inicial de 10% para todos os períodos. Qual análise é mais conservadora e por quê?<br>
+  c) (Desafio) Calcule o VPLM supondo reaplicação dos fluxos positivos a 12% a.a.</p>
+</div>
+
+<div class="questao">
+  <span class="questao-num">Questão 2 — Taxas Específicas de Desconto</span>
+  <p>Uma empresa planeja lançar um produto em um mercado competitivo. Os dados do projeto são:</p>
+  <table>
+    <thead><tr><th>Parâmetro</th><th>Valor</th></tr></thead>
+    <tbody>
+      <tr><td>Investimento inicial</td><td>R$ 200.000</td></tr>
+      <tr><td>Receita bruta no ano 1</td><td>R$ 120.000 — declínio de 4% a.a. (preços)</td></tr>
+      <tr><td>Custo operacional no ano 1</td><td>R$ 30.000 — crescimento de 5% a.a. (inflação de insumos)</td></tr>
+      <tr><td>Vida útil do projeto</td><td>5 anos, sem valor residual</td></tr>
+      <tr><td>TMA real</td><td>15% a.a.</td></tr>
+    </tbody>
+  </table>
+  <p>a) Calcule \(i_e\) para receitas e para custos.<br>
+  b) Calcule o VP de cada componente usando o fator \((P/A;\,i_e;\,5)\).<br>
+  c) Calcule o VPL e opine sobre a viabilidade do projeto.</p>
+</div>
+
+<!-- ============ GABARITO ============ -->
+<div class="gabarito" id="gabarito">
+  <h3>Gabarito</h3>
+
+  <div class="gabarito-item">
+    <strong>Questão 1 — TMA Variável</strong>
+    <p><strong>(a) VPL convencional</strong> — desconto com TMAs acumuladas:<br>
+    \(VP_1 = 80/1{,}10 = 72{,}73\) | \(VP_2 = 80/(1{,}10 \times 1{,}11) = 65{,}52\) | \(VP_3 = 80/(1{,}221 \times 1{,}12) = 58{,}50\) | \(VP_4 = 80/(1{,}3675 \times 1{,}13) = 51{,}77\)<br>
+    \[VPL = -200 + 72{,}73 + 65{,}52 + 58{,}50 + 51{,}77 = \mathbf{R\$\,48{,}52}\]</p>
+    <p><strong>(b)</strong> Com TMA fixa de 10%: VP = 80 × (P/A; 10%; 4) = 80 × 3,1699 = 253,59 → VPL = R$ 53,59<br>
+    A análise com TMA variável (R$ 48,52) é mais conservadora, pois as taxas crescentes reduzem mais o VP dos fluxos futuros.</p>
+    <p><strong>(c) VPLM</strong> com reaplicação a 12%:<br>
+    \(FV = 80 \times 1{,}12^3 + 80 \times 1{,}12^2 + 80 \times 1{,}12 + 80 = 80 \times (1{,}4049+1{,}2544+1{,}12+1) = 80 \times 4{,}7793 = 382{,}35\)<br>
+    \(VPLM = -200 + 382{,}35/(1{,}10 \times 1{,}11 \times 1{,}12 \times 1{,}13) = -200 + 382{,}35/1{,}5454 = -200 + 247{,}42 = \mathbf{R\$\,47{,}42}\)</p>
+  </div>
+
+  <div class="gabarito-item">
+    <strong>Questão 2 — Taxas Específicas</strong>
+    <p><strong>(a) Taxas específicas:</strong><br>
+    \(i_{e,\text{receita}} = \frac{1{,}15}{0{,}96} - 1 = \frac{1{,}15}{0{,}96} - 1 = 0{,}1979 = 19{,}79\%\)<br>
+    \(i_{e,\text{custos}} = \frac{1{,}15}{1{,}05} - 1 = 0{,}0952 = 9{,}52\%\)</p>
+    <p><strong>(b)</strong> Fator \((P/A;\,19{,}79\%;\,5)\):<br>
+    \((1{,}1979)^5 = 2{,}4665\) → P/A = 1{,}4665/(0{,}1979 × 2{,}4665) = 1{,}4665/0{,}4881 = 3{,}004<br>
+    \(VP_{\text{receita}} = 120.000 \times 3{,}004 = \mathbf{R\$\,360.480}\)<br>
+    Fator \((P/A;\,9{,}52\%;\,5)\):<br>
+    \((1{,}0952)^5 = 1{,}5761\) → P/A = 0{,}5761/(0{,}0952 × 1{,}5761) = 0{,}5761/0{,}1500 = 3{,}840<br>
+    \(VP_{\text{custos}} = 30.000 \times 3{,}840 = \mathbf{R\$\,115.200}\)</p>
+    <p><strong>(c)</strong> \(VPL = -200.000 + 360.480 - 115.200 = \mathbf{R\$\,45.280}\)<br>
+    VPL &gt; 0 → <strong>projeto viável</strong>, mesmo com queda de receitas e aumento de custos.</p>
+  </div>
+</div>
+
+</div>
+</body>
+</html>

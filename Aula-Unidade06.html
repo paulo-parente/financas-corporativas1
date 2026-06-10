@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Substituição de Equipamentos — Material Didático</title>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']], processEscapes: true, tags: 'none' },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] },
+  startup: { typeset: false }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script>window.addEventListener('load', function(){ MathJax.typesetPromise(); });</script>
+<style>
+  :root{
+    --azul:#0F3D6E; --azul2:#1B6FB8; --cinza:#F5F7FA; --cinza2:#E5EAF1;
+    --verde:#1B7F4F; --amarelo:#F7F1D6; --vermelho:#B23A48; --borda:#CBD5E1;
+    --texto:#1F2937;
+  }
+  *{box-sizing:border-box}
+  body{ font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    color:var(--texto); line-height:1.65; margin:0; background:#fff; }
+  .container{max-width:920px; margin:0 auto; padding:32px 28px 80px;}
+  header{ background:linear-gradient(135deg,var(--azul) 0%,var(--azul2) 100%);
+    color:white; padding:36px 28px; margin:-32px -28px 28px; border-radius:0 0 14px 14px; }
+  header .eyebrow{opacity:.8;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;}
+  header h1{margin:6px 0 4px;font-size:2.0rem;font-weight:700;}
+  header p{margin:0;opacity:.92}
+  h2{color:var(--azul);border-bottom:3px solid var(--azul2);padding-bottom:6px;margin-top:42px;font-size:1.55rem;}
+  h3{color:var(--azul2);margin-top:28px;font-size:1.2rem;}
+  h4{color:var(--texto);margin-top:18px;font-size:1.05rem;}
+  p,li{font-size:1rem;}
+  ul,ol{padding-left:22px}
+  li{margin-bottom:6px}
+  code{background:var(--cinza);padding:2px 6px;border-radius:4px;font-size:.95em;}
+  .toc{background:var(--cinza);border:1px solid var(--cinza2);border-radius:10px;padding:18px 22px;margin:18px 0 6px;}
+  .toc h3{margin-top:0;color:var(--azul)}
+  .toc ol{margin:0}
+  .toc a{color:var(--azul);text-decoration:none}
+  .toc a:hover{text-decoration:underline}
+  .destaque{background:var(--amarelo);border-left:5px solid #E0B400;padding:14px 18px;border-radius:6px;margin:16px 0;}
+  .conceito{background:#EAF3FB;border-left:5px solid var(--azul2);padding:14px 18px;border-radius:6px;margin:16px 0;}
+  .conceito h4{margin-top:0;color:var(--azul)}
+  .atencao{background:#FBEAEA;border-left:5px solid var(--vermelho);padding:14px 18px;border-radius:6px;margin:16px 0;}
+  .atencao h4{margin-top:0;color:var(--vermelho)}
+  .exemplo{background:#EFF8F2;border-left:5px solid var(--verde);padding:16px 20px;border-radius:6px;margin:18px 0;}
+  .exemplo h4{margin-top:0;color:var(--verde)}
+  .formula{background:#FAFAFA;border:1px solid var(--cinza2);border-radius:8px;padding:14px;text-align:center;margin:14px 0;}
+  table{border-collapse:collapse;width:100%;margin:14px 0;font-size:.95rem;}
+  th,td{border:1px solid var(--borda);padding:8px 10px;text-align:left;}
+  th{background:var(--azul);color:white;font-weight:600;}
+  tr:nth-child(even) td{background:#F8FAFC;}
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  @media(max-width:680px){.grid-2{grid-template-columns:1fr}}
+  .card{background:white;border:1px solid var(--cinza2);border-radius:10px;padding:14px 16px;}
+  .card h4{margin-top:0}
+  .passo{background:#F5F7FA;border-left:4px solid var(--azul2);padding:10px 14px;border-radius:4px;margin:10px 0;font-size:.97rem;}
+  .passo strong{color:var(--azul)}
+  .nota{font-size:.88rem;color:#555;font-style:italic;}
+  hr{border:none;border-top:1px dashed var(--borda);margin:30px 0;}
+  .planilha td:first-child{font-weight:600;background:#F0F4FA;}
+  .planilha td.positivo{color:var(--verde);font-weight:600;}
+  .planilha td.negativo{color:var(--vermelho);font-weight:600;}
+  .planilha tr.total > td{background:#E8F0FC !important;font-weight:700;}
+  .planilha tr.melhor > td{background:#E8F7EE !important;font-weight:700;color:var(--verde);}
+  .questao{border:2px solid var(--azul2);border-radius:10px;padding:20px 22px;margin:20px 0;background:#fff;}
+  .questao-num{background:var(--azul2);color:white;border-radius:999px;padding:2px 12px;font-size:.85rem;font-weight:700;display:inline-block;margin-bottom:10px;}
+  .gabarito{background:#F0FAF4;border:2px solid var(--verde);border-radius:10px;padding:20px 22px;margin:20px 0;}
+  .gabarito h3{color:var(--verde);margin-top:0;border-bottom:2px solid var(--verde);padding-bottom:6px;}
+  .gabarito-item{margin-bottom:20px;padding-bottom:16px;border-bottom:1px dashed #9ADBB8;}
+  .gabarito-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+  .equip-card{display:flex;align-items:center;gap:16px;background:#F0F6FF;border:1px solid var(--cinza2);border-radius:8px;padding:10px 14px;margin-bottom:12px;}
+  .equip-card svg{flex-shrink:0;}
+  .equip-card .equip-info{font-size:.88rem;color:#444;line-height:1.4;}
+  .equip-card .equip-info strong{color:var(--azul);font-size:.93rem;display:block;margin-bottom:2px;}
+  details.resolucao{margin-top:12px;}
+  details.resolucao > summary{cursor:pointer;background:var(--azul2);color:white;padding:9px 16px;border-radius:6px;font-weight:600;font-size:.93rem;list-style:none;display:flex;align-items:center;gap:8px;user-select:none;transition:background .15s;}
+  details.resolucao > summary::-webkit-details-marker{display:none;}
+  details.resolucao > summary::before{content:"▶";font-size:.72rem;transition:transform .2s;flex-shrink:0;}
+  details.resolucao[open] > summary::before{transform:rotate(90deg);}
+  details.resolucao > summary:hover{background:var(--azul);}
+  details.resolucao .resolucao-corpo{border:1px solid var(--cinza2);border-top:none;border-radius:0 0 6px 6px;padding:14px 16px 10px;background:#FAFBFC;}
+  details.resolucao .resolucao-corpo .passo{background:#F0F4FA;}
+  @media print{
+    header{background:var(--azul) !important;color:white !important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .toc,.destaque,.conceito,.atencao,.exemplo,.card,.formula,.passo{break-inside:avoid;}
+    h2,h3{break-after:avoid;}
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <div class="eyebrow">Finanças Corporativas I — UFC / FEAAC</div>
+  <h1>Unidade 6: Substituição de Equipamentos</h1>
+  <p>Baixa sem reposição · Vida econômica · Substituição idêntica e não idêntica · Progresso tecnológico</p>
+</header>
+
+<div class="toc">
+  <h3>Sumário</h3>
+  <ol>
+    <li><a href="#s1">Introdução</a></li>
+    <li><a href="#s2">Tipos de Substituição</a></li>
+    <li><a href="#s3">Baixa sem Reposição</a></li>
+    <li><a href="#s4">Substituição Idêntica e Vida Econômica</a></li>
+    <li><a href="#s5">Substituição Não Idêntica</a></li>
+    <li><a href="#s6">Substituição com Progresso Tecnológico</a></li>
+    <li><a href="#s7">Substituição Estratégica</a></li>
+    <li><a href="#questoes">Questões para Sala de Aula</a></li>
+    <li><a href="#gabarito">Gabarito</a></li>
+  </ol>
+</div>
+
+<!-- ========== SECTION 1 ========== -->
+<h2 id="s1">1. Introdução</h2>
+
+<p>A <strong>substituição de equipamentos</strong> é uma das decisões de investimento mais frequentes nas empresas. Ela abrange duas situações principais:</p>
+
+<div class="grid-2">
+  <div class="card">
+    <h4>(1) Substituição por similar</h4>
+    <p>Troca do ativo existente por um modelo novo de mesma natureza — por exemplo, caminhões velhos substituídos por modelos novos do mesmo tipo.</p>
+  </div>
+  <div class="card">
+    <h4>(2) Substituição por alternativa funcional</h4>
+    <p>Substituição por ativos que desempenham a mesma função de forma diferente — ex.: caminhões próprios substituídos por serviços terceirizados de transportadora, ou locação de frota.</p>
+  </div>
+</div>
+
+<h3>Por que é um tema crítico?</h3>
+<ul>
+  <li>É um problema comum e recorrente em qualquer empresa com ativos físicos</li>
+  <li>Exige grandes volumes de capital e tem baixa liquidez — decisão de difícil reversão</li>
+  <li>A escolha do método de avaliação influencia diretamente o resultado</li>
+  <li>Aplica-se também em contextos não industriais: vida econômica de pomares, momento ótimo de corte de reflorestamentos, renovação de frota de locadoras</li>
+</ul>
+
+<div class="destaque">
+  <strong>Tipos de substituição:</strong> baixa sem reposição · substituição idêntica · substituição não idêntica · substituição com progresso tecnológico · substituição estratégica
+</div>
+
+<!-- ========== SECTION 2 ========== -->
+<h2 id="s2">2. Razões para Substituição</h2>
+
+<div class="grid-2">
+  <div class="card">
+    <h4>Deterioração física</h4>
+    <p>Com o envelhecimento, o ativo gera custos operacionais crescentes (manutenção, peças, energia), perda de produtividade e maior risco de falha. O custo de manter supera o custo de substituir.</p>
+  </div>
+  <div class="card">
+    <h4>Obsolescência tecnológica</h4>
+    <p>Mesmo fisicamente funcional, o ativo pode se tornar economicamente obsoleto devido ao surgimento de tecnologias mais eficientes — menor consumo, maior velocidade, maior precisão.</p>
+  </div>
+</div>
+
+<div class="conceito">
+  <h4>A Lógica Central</h4>
+  <p>Em qualquer modelo de substituição, a pergunta fundamental é: <em>vale mais a pena manter o ativo por mais um período ou vendê-lo agora e substituí-lo?</em> O <strong>custo de oportunidade</strong> de manter é o valor de mercado atual do ativo — quanto ele renderia se vendido hoje.</p>
+</div>
+
+<!-- ========== SECTION 3 ========== -->
+<h2 id="s3">3. Baixa sem Reposição</h2>
+
+<p>Ocorre quando um equipamento se torna economicamente inviável <em>antes</em> de atingir sua vida física e <strong>não é desejável substituí-lo</strong> — a atividade será encerrada. A questão é: <em>em que momento vender o ativo?</em></p>
+
+<div class="conceito">
+  <h4>Critério de Decisão</h4>
+  <p>O ativo deve ser mantido por mais um período se o VPL da manutenção nesse período for <strong>maior que zero</strong>:</p>
+  <div class="formula" style="text-align:left;margin-top:8px">
+    \[ VPL_{\text{manter}} = -V_{t-1} + \frac{(R_t - C_t) + V_t}{1 + i} \]
+    <p style="font-size:.9rem;margin-top:8px">onde \(V_{t-1}\) = valor de mercado no início do período (custo de oportunidade), \(R_t\) = receita, \(C_t\) = custo operacional, \(V_t\) = valor de mercado ao final do período.</p>
+  </div>
+</div>
+
+<!-- EXEMPLO 3 -->
+<div class="exemplo">
+  <h4>Exemplo 1 — Quando baixar um equipamento agroindustrial?</h4>
+  <div class="equip-card">
+    <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Old machine/equipment -->
+      <rect x="8" y="20" width="32" height="22" rx="2" fill="#94A3B8"/>
+      <rect x="12" y="24" width="10" height="10" rx="1" fill="#64748B"/>
+      <rect x="26" y="24" width="10" height="10" rx="1" fill="#64748B"/>
+      <rect x="16" y="36" width="6" height="6" rx="1" fill="#475569"/>
+      <rect x="26" y="36" width="6" height="6" rx="1" fill="#475569"/>
+      <circle cx="36" cy="30" r="4" fill="#F59E0B" opacity=".7"/>
+      <circle cx="36" cy="30" r="2" fill="#D97706"/>
+      <!-- Smoke indicating deterioration -->
+      <path d="M20 20 Q22 14 20 10 Q18 6 22 4" stroke="#9CA3AF" stroke-width="1.5" fill="none" stroke-dasharray="2,2"/>
+      <path d="M28 20 Q30 16 28 12" stroke="#9CA3AF" stroke-width="1.5" fill="none" stroke-dasharray="2,2"/>
+      <rect x="4" y="42" width="44" height="4" rx="2" fill="#CBD5E1"/>
+    </svg>
+    <div class="equip-info">
+      <strong>Equipamento agroindustrial em fim de vida — TMA = 10% a.a.</strong>
+      O equipamento possui valor de mercado decrescente. Receitas e custos operacionais variam a cada ano. A empresa não pretende adquirir substituto.
+    </div>
+  </div>
+
+  <table>
+    <thead><tr><th>Ano</th><th>Valor de Mercado (Venda)</th><th>Custo Operacional</th><th>Receita Gerada</th></tr></thead>
+    <tbody>
+      <tr><td>0 (hoje)</td><td>R$ 400.000</td><td>—</td><td>—</td></tr>
+      <tr><td>1</td><td>R$ 300.000</td><td>R$ 80.000</td><td>R$ 240.000</td></tr>
+      <tr><td>2</td><td>R$ 200.000</td><td>R$ 100.000</td><td>R$ 220.000</td></tr>
+      <tr><td>3</td><td>R$ 100.000</td><td>R$ 120.000</td><td>R$ 200.000</td></tr>
+    </tbody>
+  </table>
+  <p>Determine o momento ótimo de venda do equipamento.</p>
+
+  <details class="resolucao">
+  <summary>Ver resolução</summary>
+  <div class="resolucao-corpo">
+
+  <div class="passo"><strong>Análise período a período</strong> — aplicando o critério:<br>
+  \(VPL_t = -V_{t-1} + \frac{(R_t - C_t) + V_t}{1{,}10}\)</div>
+
+  <div class="passo"><strong>Período 1 (vender agora por 400k ou manter até o ano 1?):</strong><br>
+  \(VPL_1 = -400.000 + \frac{(240.000 - 80.000) + 300.000}{1{,}10} = -400.000 + \frac{460.000}{1{,}10} = -400.000 + 418.182 = \mathbf{+18.182}\)<br>
+  VPL &gt; 0 → <strong>vale a pena manter por mais 1 ano.</strong></div>
+
+  <div class="passo"><strong>Período 2 (vender no ano 1 por 300k ou manter até o ano 2?):</strong><br>
+  \(VPL_2 = -300.000 + \frac{(220.000 - 100.000) + 200.000}{1{,}10} = -300.000 + \frac{320.000}{1{,}10} = -300.000 + 290.909 = \mathbf{-9.091}\)<br>
+  VPL &lt; 0 → <strong>não vale a pena manter além do ano 1.</strong></div>
+
+  <div class="passo"><strong>Decisão: vender o equipamento no final do ano 1 por R$ 300.000.</strong><br>
+  Manter por 2 anos destruiria R$ 9.091 de valor. Manter por 3 anos seria ainda pior.</div>
+
+  <div class="passo"><strong>Intuição:</strong> No ano 1, o ativo ainda gera receita líquida de R$ 160.000 e se desvaloriza apenas R$ 100.000 — o benefício (R$ 160k) supera o custo de oportunidade do capital (R$ 40k de juros sobre os R$ 400k). No ano 2, o ativo gera R$ 120k mas se desvaloriza R$ 100k, e o custo de oportunidade é R$ 30k — o saldo é negativo.</div>
+
+  </div>
+  </details>
+</div>
+
+<!-- ========== SECTION 4 ========== -->
+<h2 id="s4">4. Substituição Idêntica e Vida Econômica</h2>
+
+<div class="conceito">
+  <h4>Vida Econômica</h4>
+  <p>Em substituições idênticas, o ativo é reposto por um modelo igual ao final de cada ciclo. A questão é: <em>qual o intervalo ótimo entre substituições?</em> Esse intervalo é a <strong>vida econômica</strong> — o número de anos que minimiza o Custo Anual Uniforme Equivalente (CAUE) ou maximiza o Valor Anual Uniforme Equivalente (VAUE).</p>
+</div>
+
+<h3>Fórmula do CAUE</h3>
+<div class="formula">
+\[ CAUE(n) = P \cdot (A/P;\,i;\,n) - R_n \cdot (A/F;\,i;\,n) + \overline{C} \]
+<p style="font-size:.9rem;margin-top:6px">
+onde \(P\) = preço de compra, \(R_n\) = valor de revenda no ano \(n\), \(\overline{C}\) = custos operacionais anualizados,<br>
+\((A/P;\,i;\,n) = \frac{i(1+i)^n}{(1+i)^n-1}\) (fator de recuperação de capital),<br>
+\((A/F;\,i;\,n) = \frac{i}{(1+i)^n-1}\) (fator de fundo de amortização).
+</p>
+</div>
+
+<div class="atencao">
+  <h4>Dois componentes do CAUE</h4>
+  <ul>
+    <li><strong>Custo de capital:</strong> \(P \cdot (A/P) - R_n \cdot (A/F)\) — quanto custa "ter" o ativo (depreciação + custo de oportunidade). Diminui com o tempo (ativo amortizado).</li>
+    <li><strong>Custo operacional anualizado:</strong> sobe com o tempo (deterioração, manutenção crescente).</li>
+  </ul>
+  <p>A <strong>vida econômica</strong> é o ponto onde esses dois custos se equilibram — mínimo do CAUE total.</p>
+</div>
+
+<!-- EXEMPLO 4 -->
+<div class="exemplo">
+  <h4>Exemplo 2 — Vida econômica de um equipamento industrial</h4>
+  <div class="equip-card">
+    <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- CNC machine-like equipment -->
+      <rect x="6" y="18" width="38" height="26" rx="2" fill="#1B6FB8" opacity=".8"/>
+      <rect x="10" y="22" width="14" height="14" rx="1" fill="#0F3D6E"/>
+      <circle cx="17" cy="29" r="4" fill="#CBD5E1" opacity=".7"/>
+      <circle cx="17" cy="29" r="2" fill="#94A3B8"/>
+      <rect x="28" y="22" width="12" height="6" rx="1" fill="#1455A0"/>
+      <rect x="28" y="30" width="12" height="3" rx="1" fill="#1455A0"/>
+      <rect x="28" y="35" width="12" height="3" rx="1" fill="#1455A0"/>
+      <rect x="4" y="44" width="42" height="5" rx="2" fill="#475569"/>
+      <rect x="14" y="44" width="6" height="8" rx="1" fill="#374151"/>
+      <rect x="30" y="44" width="6" height="8" rx="1" fill="#374151"/>
+    </svg>
+    <div class="equip-info">
+      <strong>Equipamento industrial — TMA = 10% a.a.</strong>
+      Preço de aquisição: R$ 60.000. Revenda e custos operacionais variam anualmente com o envelhecimento do ativo.
+    </div>
+  </div>
+
+  <table>
+    <thead><tr><th>Ano (n)</th><th>Revenda (Rₙ)</th><th>Custo operacional (Cₙ)</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>R$ 50.000</td><td>R$ 1.000</td></tr>
+      <tr><td>2</td><td>R$ 44.000</td><td>R$ 1.600</td></tr>
+      <tr><td>3</td><td>R$ 38.000</td><td>R$ 2.400</td></tr>
+      <tr><td>4</td><td>R$ 30.000</td><td>R$ 3.400</td></tr>
+      <tr><td>5</td><td>R$ 23.000</td><td>R$ 4.600</td></tr>
+    </tbody>
+  </table>
+  <p>Calcule o CAUE para cada vida útil possível e determine a vida econômica do equipamento.</p>
+
+  <details class="resolucao">
+  <summary>Ver resolução</summary>
+  <div class="resolucao-corpo">
+
+  <div class="passo"><strong>Fatores financeiros</strong> (TMA = 10%):<br>
+  \((A/P;\,10\%;\,n)\) e \((A/F;\,10\%;\,n)\) para n = 1 a 5.<br>
+  Custo de capital: \(CC(n) = 60.000 \times (A/P) - R_n \times (A/F)\)<br>
+  Custo operacional anualizado: \(CO(n) = \sum_{t=1}^{n} C_t \times (P/F;\,10\%;\,t) \times (A/P;\,10\%;\,n)\)</div>
+
+  <table class="planilha">
+    <thead><tr><th>n</th><th>(A/P; 10%; n)</th><th>(A/F; 10%; n)</th><th>CC(n)</th><th>CO(n)</th><th>CAUE(n)</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>1,1000</td><td>1,0000</td><td>R$ 16.000</td><td>R$ 1.000</td><td>R$ 17.000</td></tr>
+      <tr><td>2</td><td>0,5762</td><td>0,4762</td><td>R$ 13.619</td><td>R$ 1.285</td><td>R$ 14.904</td></tr>
+      <tr class="melhor"><td><strong>3 ★</strong></td><td>0,4021</td><td>0,3021</td><td><strong>R$ 12.649</strong></td><td><strong>R$ 1.622</strong></td><td><strong>R$ 14.271</strong></td></tr>
+      <tr><td>4</td><td>0,3155</td><td>0,2155</td><td>R$ 12.465</td><td>R$ 2.006</td><td>R$ 14.471</td></tr>
+      <tr><td>5</td><td>0,2638</td><td>0,1638</td><td>R$ 12.061</td><td>R$ 2.431</td><td>R$ 14.492</td></tr>
+    </tbody>
+  </table>
+
+  <div class="passo"><strong>Vida econômica = 3 anos</strong>, pois CAUE(3) = R$ 14.271 é o mínimo.<br>
+  Padrão típico: custo de capital cai com o tempo; custo operacional cresce; o mínimo ocorre onde a queda do CC deixa de compensar o aumento do CO.</div>
+
+  <div class="passo"><strong>Interpretação:</strong> o equipamento deve ser trocado a cada 3 anos. Manter por apenas 1 ano seria muito caro (CC alto). Manter por 4+ anos eleva os custos operacionais acima da economia de capital.</div>
+
+  </div>
+  </details>
+</div>
+
+<!-- ========== SECTION 5 ========== -->
+<h2 id="s5">5. Substituição Não Idêntica</h2>
+
+<p>Quando o ativo existente pode ser substituído por um <strong>modelo diferente</strong> (ex: mais caro, mais eficiente, com vida útil diferente), a comparação é feita pelo Custo Anual Uniforme Equivalente de cada alternativa.</p>
+
+<div class="conceito">
+  <h4>Método do CAUE para substituição não idêntica</h4>
+  <p>Calcular o CAUE de <strong>manter o ativo atual</strong> versus o CAUE de <strong>adquirir o novo ativo</strong>. O valor atual de mercado do ativo velho é o seu custo de oportunidade — e não o valor contábil ou o preço original pago.</p>
+  <div class="formula" style="text-align:left">
+    \[\text{CAUE}_{\text{velho}} = V_{\text{atual}} \cdot (A/P;\,i;\,n_v) + C_v\]
+    \[\text{CAUE}_{\text{novo}} = P_{\text{novo}} \cdot (A/P;\,i;\,n_n) + C_n\]
+    <p style="font-size:.9rem">Se \(\text{CAUE}_{\text{novo}} &lt; \text{CAUE}_{\text{velho}}\) → substituir agora.</p>
+  </div>
+</div>
+
+<!-- EXEMPLO 5 -->
+<div class="exemplo">
+  <h4>Exemplo 3 — Substituição de frota de caminhões</h4>
+  <div class="equip-card">
+    <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Old truck (left, gray) -->
+      <rect x="2" y="28" width="22" height="14" rx="2" fill="#94A3B8"/>
+      <rect x="16" y="24" width="8" height="6" rx="1" fill="#CBD5E1"/>
+      <rect x="4" y="30" width="6" height="8" rx="1" fill="#64748B"/>
+      <circle cx="7" cy="44" r="4" fill="#374151"/>
+      <circle cx="7" cy="44" r="2" fill="#6B7280"/>
+      <circle cx="20" cy="44" r="4" fill="#374151"/>
+      <circle cx="20" cy="44" r="2" fill="#6B7280"/>
+      <text x="3" y="54" font-size="7" fill="#555">Velho</text>
+      <!-- Arrow -->
+      <text x="25" y="38" font-size="10" fill="#1B7F4F" font-weight="bold">→</text>
+      <!-- New truck (right, blue) -->
+      <rect x="30" y="24" width="24" height="18" rx="2" fill="#1B6FB8" opacity=".85"/>
+      <rect x="46" y="20" width="8" height="6" rx="1" fill="#1455A0"/>
+      <rect x="32" y="27" width="8" height="10" rx="1" fill="#0F3D6E"/>
+      <circle cx="36" cy="44" r="4" fill="#1F2937"/>
+      <circle cx="36" cy="44" r="2" fill="#4B5563"/>
+      <circle cx="50" cy="44" r="4" fill="#1F2937"/>
+      <circle cx="50" cy="44" r="2" fill="#4B5563"/>
+      <text x="32" y="54" font-size="7" fill="#1B6FB8">Novo</text>
+    </svg>
+    <div class="equip-info">
+      <strong>Frota de caminhões — TMA = 10% a.a.</strong>
+      Decisão: manter o caminhão velho por mais 5 anos ou comprar um caminhão novo agora? Se não comprado agora, só poderá ser adquirido em 5 anos.
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h4>Caminhão Novo</h4>
+      <ul>
+        <li>Preço: R$ 4.000.000</li>
+        <li>Custo anual: R$ 200.000</li>
+        <li>Vida útil: 15 anos (= vida econômica)</li>
+        <li>Valor residual: zero</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>Caminhão Velho</h4>
+      <ul>
+        <li>Valor atual de mercado: R$ 1.000.000</li>
+        <li>Custo anual: R$ 500.000</li>
+        <li>Vida útil restante: 5 anos</li>
+        <li>Valor residual: zero</li>
+      </ul>
+    </div>
+  </div>
+
+  <details class="resolucao">
+  <summary>Ver resolução</summary>
+  <div class="resolucao-corpo">
+
+  <div class="passo"><strong>CAUE do caminhão novo</strong> (15 anos, TMA = 10%):<br>
+  \((A/P;\,10\%;\,15) = \frac{0{,}10 \times 1{,}10^{15}}{1{,}10^{15}-1} = 0{,}1315\)<br>
+  \(\text{CAUE}_{\text{novo}} = 4.000.000 \times 0{,}1315 + 200.000 = 526.000 + 200.000 = \mathbf{R\$\,726.000/\text{ano}}\)</div>
+
+  <div class="passo"><strong>CAUE do caminhão velho</strong> (5 anos restantes, custo de oportunidade = valor de mercado atual):<br>
+  \((A/P;\,10\%;\,5) = 0{,}2638\)<br>
+  \(\text{CAUE}_{\text{velho}} = 1.000.000 \times 0{,}2638 + 500.000 = 263.800 + 500.000 = \mathbf{R\$\,763.800/\text{ano}}\)</div>
+
+  <div class="passo"><strong>Decisão: substituir agora.</strong><br>
+  CAUE<sub>novo</sub> (R$ 726.000) &lt; CAUE<sub>velho</sub> (R$ 763.800)<br>
+  Economia anual com substituição: R$ 763.800 − R$ 726.000 = <strong>R$ 37.800/ano</strong>.</div>
+
+  <div class="passo"><strong>Atenção ao custo de oportunidade:</strong> O valor contábil do caminhão velho (quanto foi pago originalmente) é irrelevante. O que importa é o valor atual de mercado (R$ 1.000.000) — o que a empresa abre mão ao manter o ativo em vez de vendê-lo.</div>
+
+  </div>
+  </details>
+</div>
+
+<!-- ========== SECTION 6 ========== -->
+<h2 id="s6">6. Substituição com Progresso Tecnológico</h2>
+
+<p>Os modelos anteriores assumem que o ativo de reposição é idêntico ao atual. Mas o avanço tecnológico cria equipamentos cada vez mais eficientes: custos operacionais futuros tendem a ser menores do que os atuais.</p>
+
+<div class="conceito">
+  <h4>Custo de Obsolescência</h4>
+  <p>O modelo dinâmico compara o custo operacional do equipamento existente com o custo dos equipamentos que serão lançados no mercado nos próximos anos. Se manter o ativo implica incorrer em custos maiores do que o equipamento futuro teria, há um <strong>custo de obsolescência</strong> — penalidade por esperar demais para substituir.</p>
+</div>
+
+<div class="destaque">
+  <strong>Aplicação prática:</strong> automóveis de empresa (tabelas FIPE disponíveis), frotas de aeronaves, equipamentos médicos, servidores de TI. O critério considera o custo de operar o ativo atual versus o custo esperado do ativo que estará disponível no futuro, descontados ao presente.
+</div>
+
+<!-- ========== SECTION 7 ========== -->
+<h2 id="s7">7. Substituição Estratégica</h2>
+
+<p>A substituição estratégica vai além dos custos operacionais: considera também o <strong>impacto nas receitas</strong>. Equipamentos velhos podem gerar receitas menores porque clientes preferem trabalhar com tecnologia mais nova.</p>
+
+<div class="conceito">
+  <h4>VAUE — Valor Anual Uniforme Equivalente</h4>
+  <p>Quando há receitas envolvidas, maximizamos o VAUE em vez de minimizar o CAUE:</p>
+  <div class="formula" style="text-align:left">
+    \[VAUE(n) = \text{Receita anual equivalente}(n) - CAUE(n)\]
+    <p style="font-size:.9rem">O ano com maior VAUE é a vida econômica estratégica do ativo.</p>
+  </div>
+</div>
+
+<!-- EXEMPLO 7 -->
+<div class="exemplo">
+  <h4>Exemplo 4 — Vida econômica estratégica de uma frota de locadora</h4>
+  <div class="equip-card">
+    <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Car rental / car -->
+      <rect x="8" y="28" width="36" height="16" rx="3" fill="#1B6FB8" opacity=".85"/>
+      <rect x="14" y="22" width="22" height="10" rx="2" fill="#1455A0" opacity=".9"/>
+      <rect x="16" y="24" width="8" height="6" rx="1" fill="#93C5FD" opacity=".7"/>
+      <rect x="26" y="24" width="8" height="6" rx="1" fill="#93C5FD" opacity=".7"/>
+      <circle cx="16" cy="46" r="5" fill="#1F2937"/>
+      <circle cx="16" cy="46" r="2.5" fill="#6B7280"/>
+      <circle cx="38" cy="46" r="5" fill="#1F2937"/>
+      <circle cx="38" cy="46" r="2.5" fill="#6B7280"/>
+      <rect x="8" y="32" width="4" height="3" rx="1" fill="#FCD34D" opacity=".9"/>
+      <rect x="40" y="32" width="4" height="3" rx="1" fill="#FCA5A5" opacity=".9"/>
+      <!-- R$ sign -->
+      <text x="24" y="37" font-size="9" font-weight="bold" fill="white">R$</text>
+      <text x="6" y="56" font-size="7" fill="#1B6FB8">Locadora</text>
+    </svg>
+    <div class="equip-info">
+      <strong>Locadora de Veículos — TMA = 10% a.a.</strong>
+      Os clientes preferem carros novos. Receita cai R$ 50.000 por ano de envelhecimento. Custos e revendas seguem o padrão do Exemplo 2 (P = R$ 60.000).
+    </div>
+  </div>
+
+  <p>Receitas geradas pelo veículo: R$ 500.000 no 1º ano, decrescendo R$ 50.000 a cada ano subsequente.</p>
+
+  <table>
+    <thead><tr><th>Ano (n)</th><th>Receita do ano</th><th>CAUE(n)</th><th>Receita anualizada</th><th>VAUE(n)</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>R$ 500.000</td><td>R$ 17.000</td><td>R$ 500.000</td><td>R$ 483.000</td></tr>
+      <tr><td>2</td><td>R$ 450.000</td><td>R$ 14.904</td><td>R$ 476.190</td><td>R$ 461.286</td></tr>
+      <tr><td>3</td><td>R$ 400.000</td><td>R$ 14.271</td><td>R$ 452.381</td><td>R$ 438.110</td></tr>
+      <tr><td>4</td><td>R$ 350.000</td><td>R$ 14.471</td><td>R$ 428.571</td><td>R$ 414.100</td></tr>
+      <tr><td>5</td><td>R$ 300.000</td><td>R$ 14.492</td><td>R$ 404.762</td><td>R$ 390.270</td></tr>
+    </tbody>
+  </table>
+  <p class="nota">Receita anualizada = PV das receitas anuais × (A/P; 10%; n). CAUE do Exemplo 2 reaproveitado.</p>
+
+  <details class="resolucao">
+  <summary>Ver resolução</summary>
+  <div class="resolucao-corpo">
+
+  <div class="passo"><strong>VAUE diminui a cada ano:</strong> a perda de receita (R$ 50.000/ano) supera qualquer redução no CAUE. O VAUE máximo é no <strong>ano 1</strong>.</div>
+
+  <div class="passo"><strong>Vida econômica estratégica = 1 ano.</strong> A locadora deve renovar sua frota anualmente para maximizar receitas líquidas. Com receitas declinantes rápidas, o custo operacional adicional de envelhecer o veículo não compensa a queda da demanda dos clientes.</div>
+
+  <div class="passo"><strong>Contraposição com análise de custos pura:</strong> Se considerássemos apenas custos (Exemplo 2, sem receitas), a vida econômica seria 3 anos. A dimensão estratégica — preferência dos clientes por carros novos — muda completamente a decisão para 1 ano.</div>
+
+  </div>
+  </details>
+</div>
+
+<!-- ========== QUESTÕES ========== -->
+<h2 id="questoes">Questões para Sala de Aula</h2>
+
+<div class="questao">
+  <span class="questao-num">Questão 1 — Baixa sem Reposição</span>
+  <p>Uma cooperativa agrícola possui uma colheitadeira que está chegando ao fim de sua vida econômica. A diretoria decidiu que não há interesse em adquirir um substituto — o serviço será terceirizado. A TMA da cooperativa é de <strong>12% ao ano</strong>. Os dados do equipamento são:</p>
+  <table>
+    <thead><tr><th>Ano</th><th>Valor de Mercado</th><th>Custo Operacional</th><th>Receita Gerada</th></tr></thead>
+    <tbody>
+      <tr><td>0 (hoje)</td><td>R$ 280.000</td><td>—</td><td>—</td></tr>
+      <tr><td>1</td><td>R$ 200.000</td><td>R$ 60.000</td><td>R$ 180.000</td></tr>
+      <tr><td>2</td><td>R$ 130.000</td><td>R$ 80.000</td><td>R$ 160.000</td></tr>
+      <tr><td>3</td><td>R$ 70.000</td><td>R$ 110.000</td><td>R$ 140.000</td></tr>
+    </tbody>
+  </table>
+  <p>a) Calcule o VPL de manter o equipamento por mais 1 ano (a partir do ano 0).<br>
+  b) Calcule o VPL de manter o equipamento por mais 1 ano (a partir do ano 1).<br>
+  c) Calcule o VPL de manter o equipamento por mais 1 ano (a partir do ano 2).<br>
+  d) Determine o momento ótimo para a venda do equipamento.</p>
+</div>
+
+<div class="questao">
+  <span class="questao-num">Questão 2 — Vida Econômica e Substituição</span>
+  <p>Uma empresa de saneamento avalia quando substituir um conjunto de bombas hidráulicas idênticas. O custo de aquisição de cada bomba nova é de <strong>R$ 80.000</strong> e a TMA é de <strong>12% ao ano</strong>. Os dados projetados são:</p>
+  <table>
+    <thead><tr><th>Ano (n)</th><th>Valor de Revenda (Rₙ)</th><th>Custo Operacional (Cₙ)</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>R$ 65.000</td><td>R$ 2.000</td></tr>
+      <tr><td>2</td><td>R$ 52.000</td><td>R$ 3.500</td></tr>
+      <tr><td>3</td><td>R$ 40.000</td><td>R$ 5.500</td></tr>
+      <tr><td>4</td><td>R$ 29.000</td><td>R$ 8.500</td></tr>
+      <tr><td>5</td><td>R$ 18.000</td><td>R$ 13.000</td></tr>
+    </tbody>
+  </table>
+  <p>a) Calcule o CAUE para cada vida útil de 1 a 5 anos.<br>
+  b) Identifique a vida econômica do equipamento.<br>
+  c) Explique por que o CAUE diminui nos primeiros anos e depois volta a subir.</p>
+</div>
+
+<!-- ========== GABARITO ========== -->
+<div class="gabarito" id="gabarito">
+  <h3>Gabarito</h3>
+
+  <div class="gabarito-item">
+    <strong>Questão 1 — Colheitadeira</strong>
+    <p>Usando \(VPL_t = -V_{t-1} + \frac{(R_t - C_t) + V_t}{1{,}12}\):</p>
+    <ul>
+      <li><strong>(a) Período 1:</strong> VPL = −280.000 + (180.000 − 60.000 + 200.000)/1,12 = −280.000 + 285.714 = <strong>+R$ 5.714</strong> → manter</li>
+      <li><strong>(b) Período 2:</strong> VPL = −200.000 + (160.000 − 80.000 + 130.000)/1,12 = −200.000 + 187.500 = <strong>−R$ 12.500</strong> → vender</li>
+      <li><strong>(c) Período 3:</strong> Não avaliado (já seria vendida no ano 1)</li>
+    </ul>
+    <p><strong>(d) Momento ótimo: vender no final do ano 1</strong> por R$ 200.000. Manter além disso destrói valor (VPL &lt; 0).</p>
+  </div>
+
+  <div class="gabarito-item">
+    <strong>Questão 2 — Bombas Hidráulicas (P = R$ 80.000, TMA = 12%)</strong>
+    <p>CC(n) = 80.000 × (A/P;12%;n) − Rₙ × (A/F;12%;n) | CO(n) = VP(custos operacionais) × (A/P;12%;n)</p>
+    <table class="planilha">
+      <thead><tr><th>n</th><th>(A/P; 12%; n)</th><th>(A/F; 12%; n)</th><th>CC(n)</th><th>CO(n)</th><th>CAUE(n)</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>1,1200</td><td>1,0000</td><td>R$ 24.600</td><td>R$ 2.000</td><td>R$ 26.600</td></tr>
+        <tr><td>2</td><td>0,5917</td><td>0,4717</td><td>R$ 22.808</td><td>R$ 2.708</td><td>R$ 25.515</td></tr>
+        <tr><td>3</td><td>0,4163</td><td>0,2963</td><td>R$ 21.454</td><td>R$ 3.535</td><td>R$ 24.989</td></tr>
+        <tr class="melhor"><td><strong>4 ★</strong></td><td>0,3292</td><td>0,2092</td><td><strong>R$ 20.271</strong></td><td><strong>R$ 4.574</strong></td><td><strong>R$ 24.845</strong></td></tr>
+        <tr><td>5</td><td>0,2774</td><td>0,1574</td><td>R$ 19.359</td><td>R$ 5.900</td><td>R$ 25.260</td></tr>
+      </tbody>
+    </table>
+    <p><strong>(b) Vida econômica = 4 anos</strong> — CAUE mínimo de R$ 24.845.</p>
+    <p><strong>(c)</strong> Nos primeiros anos, o custo de capital cai rapidamente (o investimento se "dilui" ao longo de mais períodos). Nos anos seguintes, o custo operacional cresce mais rápido do que o custo de capital cai, elevando o CAUE total. O mínimo é a vida econômica — ponto de equilíbrio entre os dois componentes de custo.</p>
+  </div>
+</div>
+
+</div>
+</body>
+</html>

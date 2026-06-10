@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Depreciação e Imposto de Renda — Material Didático</title>
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']],
+    processEscapes: true,
+    tags: 'none'
+  },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] },
+  startup: { typeset: false }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script>
+window.addEventListener('load', function() {
+  MathJax.typesetPromise();
+});
+</script>
+<style>
+  :root{
+    --azul:#0F3D6E; --azul2:#1B6FB8; --cinza:#F5F7FA; --cinza2:#E5EAF1;
+    --verde:#1B7F4F; --amarelo:#F7F1D6; --vermelho:#B23A48; --borda:#CBD5E1;
+    --texto:#1F2937;
+  }
+  *{box-sizing:border-box}
+  body{
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color:var(--texto); line-height:1.65; margin:0; background:#fff;
+  }
+  .container{max-width:920px; margin:0 auto; padding:32px 28px 80px;}
+  header{
+    background: linear-gradient(135deg, var(--azul) 0%, var(--azul2) 100%);
+    color:white; padding:36px 28px; margin:-32px -28px 28px; border-radius:0 0 14px 14px;
+  }
+  header .eyebrow{opacity:.8; font-size:.85rem; letter-spacing:.12em; text-transform:uppercase;}
+  header h1{margin:6px 0 4px; font-size:2.0rem; font-weight:700;}
+  header p{margin:0; opacity:.92}
+  h2{
+    color:var(--azul); border-bottom:3px solid var(--azul2); padding-bottom:6px;
+    margin-top:42px; font-size:1.55rem;
+  }
+  h3{color:var(--azul2); margin-top:28px; font-size:1.2rem;}
+  h4{color:var(--texto); margin-top:18px; font-size:1.05rem;}
+  p, li{font-size:1rem;}
+  ul, ol{padding-left:22px}
+  li{margin-bottom:6px}
+  code{background:var(--cinza); padding:2px 6px; border-radius:4px; font-size:.95em;}
+
+  .toc{
+    background:var(--cinza); border:1px solid var(--cinza2); border-radius:10px;
+    padding:18px 22px; margin:18px 0 6px;
+  }
+  .toc h3{margin-top:0; color:var(--azul)}
+  .toc ol{margin:0}
+  .toc a{color:var(--azul); text-decoration:none}
+  .toc a:hover{text-decoration:underline}
+
+  .destaque{
+    background:var(--amarelo); border-left:5px solid #E0B400;
+    padding:14px 18px; border-radius:6px; margin:16px 0;
+  }
+  .conceito{
+    background:#EAF3FB; border-left:5px solid var(--azul2);
+    padding:14px 18px; border-radius:6px; margin:16px 0;
+  }
+  .conceito h4{margin-top:0; color:var(--azul)}
+  .atencao{
+    background:#FBEAEA; border-left:5px solid var(--vermelho);
+    padding:14px 18px; border-radius:6px; margin:16px 0;
+  }
+  .atencao h4{margin-top:0; color:var(--vermelho)}
+  .exemplo{
+    background:#EFF8F2; border-left:5px solid var(--verde);
+    padding:16px 20px; border-radius:6px; margin:18px 0;
+  }
+  .exemplo h4{margin-top:0; color:var(--verde)}
+  .formula{
+    background:#FAFAFA; border:1px solid var(--cinza2); border-radius:8px;
+    padding:14px; text-align:center; margin:14px 0;
+  }
+
+  table{border-collapse:collapse; width:100%; margin:14px 0; font-size:.95rem;}
+  th, td{border:1px solid var(--borda); padding:8px 10px; text-align:left;}
+  th{background:var(--azul); color:white; font-weight:600;}
+  tr:nth-child(even) td{background:#F8FAFC;}
+
+  .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  @media (max-width:680px){.grid-2{grid-template-columns:1fr}}
+
+  .card{
+    background:white; border:1px solid var(--cinza2); border-radius:10px;
+    padding:14px 16px;
+  }
+  .card h4{margin-top:0}
+
+  .passo{
+    background:#F5F7FA; border-left:4px solid var(--azul2);
+    padding:10px 14px; border-radius:4px; margin:10px 0; font-size:.97rem;
+  }
+  .passo strong{color:var(--azul)}
+
+  .nota{font-size:.88rem; color:#555; font-style:italic;}
+
+  .badges{display:flex; gap:10px; flex-wrap:wrap; margin:6px 0 18px;}
+  .badge{
+    background:var(--cinza2); color:var(--azul); border-radius:999px;
+    padding:4px 12px; font-size:.78rem; font-weight:600;
+  }
+
+  hr{border:none; border-top:1px dashed var(--borda); margin:30px 0;}
+
+  .caso-titulo{
+    background:var(--azul); color:white; padding:6px 14px; border-radius:6px;
+    display:inline-block; font-weight:600; font-size:.95rem; margin-bottom:8px;
+  }
+
+  /* Planilha de fluxo de caixa */
+  .planilha td:first-child{font-weight:600; background:#F0F4FA;}
+  .planilha td.positivo{color:var(--verde); font-weight:600;}
+  .planilha td.negativo{color:var(--vermelho); font-weight:600;}
+  .planilha tr.total > td{background:#E8F0FC !important; font-weight:700;}
+  .planilha tr.resultado > td{background:var(--azul) !important; color:white !important; font-weight:700;}
+  .planilha tr.ir-row > td{background:#FDF0F0 !important; color:var(--vermelho); font-weight:600;}
+
+  /* Fórmulas em tabela */
+  .fml-table{font-size:.93rem;}
+  .fml-table td:first-child{background:#F5F7FA; font-family:monospace; white-space:nowrap;}
+  .fml-table .mjx-container{font-size:1em !important;}
+
+  /* Questões */
+  .questao{
+    border:2px solid var(--azul2); border-radius:10px;
+    padding:20px 22px; margin:20px 0; background:#fff;
+  }
+  .questao-num{
+    background:var(--azul2); color:white; border-radius:999px;
+    padding:2px 12px; font-size:.85rem; font-weight:700; display:inline-block; margin-bottom:10px;
+  }
+  .gabarito{
+    background:#F0FAF4; border:2px solid var(--verde); border-radius:10px;
+    padding:20px 22px; margin:20px 0;
+  }
+  .gabarito h3{color:var(--verde); margin-top:0; border-bottom:2px solid var(--verde); padding-bottom:6px;}
+  .gabarito-item{margin-bottom:20px; padding-bottom:16px; border-bottom:1px dashed #9ADBB8;}
+  .gabarito-item:last-child{border-bottom:none; margin-bottom:0; padding-bottom:0;}
+
+
+
+  .equip-card{
+    display:flex; align-items:center; gap:16px;
+    background:#F0F6FF; border:1px solid var(--cinza2);
+    border-radius:8px; padding:10px 14px; margin-bottom:12px;
+  }
+  .equip-card svg{ flex-shrink:0; }
+  .equip-card .equip-info{ font-size:.88rem; color:#444; line-height:1.4; }
+  .equip-card .equip-info strong{ color:var(--azul); font-size:.93rem; display:block; margin-bottom:2px; }
+  details.resolucao { margin-top: 12px; }
+  details.resolucao > summary {
+    cursor: pointer;
+    background: var(--azul2);
+    color: white;
+    padding: 9px 16px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: .93rem;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    user-select: none;
+    transition: background .15s;
+  }
+  details.resolucao > summary::-webkit-details-marker { display: none; }
+  details.resolucao > summary::before {
+    content: "▶";
+    font-size: .72rem;
+    transition: transform .2s;
+    flex-shrink: 0;
+  }
+  details.resolucao[open] > summary::before { transform: rotate(90deg); }
+  details.resolucao > summary:hover { background: var(--azul); }
+  details.resolucao .resolucao-corpo {
+    border: 1px solid var(--cinza2);
+    border-top: none;
+    border-radius: 0 0 6px 6px;
+    padding: 14px 16px 10px;
+    background: #FAFBFC;
+  }
+  details.resolucao .resolucao-corpo .passo { background: #F0F4FA; }
+  @media print{
+    header{background:var(--azul) !important; color:white !important; -webkit-print-color-adjust:exact; print-color-adjust:exact;}
+    .toc, .destaque, .conceito, .atencao, .exemplo, .card, .formula, .passo{break-inside:avoid;}
+    h2, h3{break-after:avoid;}
+    .gabarito{break-inside:avoid;}
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <div class="eyebrow">Finanças Corporativas I — Unidade 5</div>
+  <h1>Depreciação e Imposto de Renda</h1>
+  <p>Material didático completo, com derivações, exemplos resolvidos passo a passo e planilhas de fluxo de caixa após imposto.</p>
+</header>
+
+<div class="badges">
+  <span class="badge">Depreciação linear</span>
+  <span class="badge">Depreciação real</span>
+  <span class="badge">Depreciação exponencial</span>
+  <span class="badge">Amortização</span>
+  <span class="badge">Imposto de Renda</span>
+  <span class="badge">Fluxo de caixa após IR</span>
+  <span class="badge">Ganho de capital</span>
+</div>
+
+<div class="toc">
+  <h3>Roteiro do material</h3>
+  <ol>
+    <li><a href="#s1">O que é depreciação e por que ela importa para o fluxo de caixa</a></li>
+    <li><a href="#s2">Depreciação contábil (fiscal) versus depreciação real</a></li>
+    <li><a href="#s3">Depreciação exponencial, amortização e exaustão</a></li>
+    <li><a href="#s4">Imposto de Renda: conceitos e efeitos no fluxo de caixa</a></li>
+    <li><a href="#s5">Montagem da planilha de fluxo de caixa após IR — exemplos resolvidos</a></li>
+    <li><a href="#s6">Síntese e fórmulas-chave</a></li>
+    <li><a href="#s7">Questões para sala de aula</a></li>
+  </ol>
+</div>
+
+<!-- ============================================================= -->
+<h2 id="s1">1. O que é depreciação e por que ela importa para o fluxo de caixa</h2>
+
+<p>Quando uma empresa adquire um equipamento por R$ 10 milhões, o gasto ocorre uma única vez — no momento da compra. Mas o equipamento vai sendo consumido ao longo de anos. <strong>Depreciação</strong> é o mecanismo contábil que distribui esse custo no tempo, registrando a perda de valor do ativo a cada período.</p>
+
+<div class="conceito">
+  <h4>Definição formal</h4>
+  <p>Depreciação é uma <strong>despesa que representa a perda de valor de um ativo</strong>, seja por deterioração física, obsolescência tecnológica ou decurso do prazo de vida útil. Não há saída de caixa no momento do registro — o desembolso ocorreu na compra.</p>
+</div>
+
+<h3>1.1 O paradoxo da depreciação: despesa sem caixa que afeta o caixa</h3>
+
+<p>Por não envolver saída de caixa no momento do lançamento, a depreciação pode parecer irrelevante para análise de investimentos. O raciocínio está errado por uma razão crucial: a depreciação é uma <strong>despesa legítima para fins fiscais</strong>. Ela reduz o lucro tributável e, com isso, reduz o Imposto de Renda pago — este sim, um desembolso real.</p>
+
+<div class="destaque">
+  <strong>A lógica central desta unidade:</strong>
+  <p style="margin:6px 0 0">
+    Depreciação → reduz lucro tributável → reduz IR pago → aumenta caixa disponível.<br>
+    O efeito é indireto, mas real e mensurável. Quanto maior a depreciação em um período, menor o IR daquele período.
+  </p>
+</div>
+
+<div class="grid-2">
+  <div class="card">
+    <h4>Sem depreciação no fluxo</h4>
+    <p>Receita = R$ 200<br>Custos = R$ 120<br>Lucro = R$ 80<br>IR (40%) = <strong>R$ 32</strong><br>Caixa disponível = R$ 80 − R$ 32 = <strong>R$ 48</strong></p>
+  </div>
+  <div class="card">
+    <h4>Com depreciação de R$ 30</h4>
+    <p>Receita = R$ 200<br>Custos = R$ 120<br>Deprec. = R$ 30<br>Lucro = R$ 50<br>IR (40%) = <strong>R$ 20</strong><br>Caixa disponível = R$ 80 − R$ 20 = <strong>R$ 60</strong></p>
+    <p class="nota">Economia de IR = R$ 12 (= R$ 30 × 40%). Esse é o <em>benefício fiscal da depreciação</em>.</p>
+  </div>
+</div>
+
+<p>A diferença de R$ 12 de IR representa dinheiro que fica no caixa da empresa. Por isso, em análise de investimentos, a depreciação entra no fluxo — não como saída de caixa, mas como <strong>geradora de economia fiscal</strong>. Note que o caixa bruto antes do IR é idêntico nos dois casos (R$ 80), mas o caixa <em>após</em> o IR é maior quando há depreciação.</p>
+
+<div class="exemplo">
+  <h4>Exemplo prático — Fábrica de calçados compra uma injetora</h4>
+  <div class="equip-card">
+  <svg width="90" height="72" viewBox="0 0 90 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Base/mesa -->
+    <rect x="5" y="50" width="80" height="14" rx="3" fill="#1B6FB8" opacity=".85"/>
+    <!-- Coluna vertical -->
+    <rect x="38" y="10" width="14" height="42" rx="2" fill="#0F3D6E"/>
+    <!-- Cilindro horizontal (injeção) -->
+    <rect x="52" y="18" width="28" height="10" rx="3" fill="#1B6FB8"/>
+    <!-- Cabeça de injeção -->
+    <circle cx="82" cy="23" r="6" fill="#E0B400"/>
+    <!-- Prensa superior -->
+    <rect x="20" y="6" width="50" height="8" rx="3" fill="#0F3D6E"/>
+    <!-- Molde inferior -->
+    <rect x="22" y="42" width="46" height="9" rx="2" fill="#2A9D5C" opacity=".9"/>
+    <!-- Detalhe solado -->
+    <path d="M28 46 Q45 50 62 46" stroke="white" stroke-width="1.5" fill="none" opacity=".7"/>
+    <!-- Parafusos -->
+    <circle cx="28" cy="55" r="3" fill="#0F3D6E"/>
+    <circle cx="62" cy="55" r="3" fill="#0F3D6E"/>
+  </svg>
+  <div class="equip-info">
+    <strong>Injetora de solado</strong>
+    Máquina que injeta borracha ou PVC fundido em moldes para fabricar solados de calçados. Opera sob alta pressão e temperatura. Custo elevado — por isso a análise de depreciação e IR é relevante.
+  </div>
+</div>
+  <p>Uma fábrica de calçados adquire uma injetora de solado por <strong>R$ 120.000</strong>. Vida útil fiscal: 5 anos (depreciação linear de R$ 24.000/ano). A injetora gera receita incremental líquida (receita menos custos variáveis) de R$ 60.000/ano. Alíquota de IR: 34%.</p>
+
+  <details class="resolucao">
+  <summary>Ver resolução</summary>
+  <div class="resolucao-corpo">
+<table>
+    <thead>
+      <tr><th>Item</th><th>Sem deprec. no cálculo</th><th>Com deprec. no cálculo</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>FC bruto (receita − custos)</td><td>60.000</td><td>60.000</td></tr>
+      <tr><td>(−) Depreciação</td><td>0</td><td>−24.000</td></tr>
+      <tr><td>= Lucro tributável</td><td>60.000</td><td>36.000</td></tr>
+      <tr><td>(×) IR (34%)</td><td>−20.400</td><td>−12.240</td></tr>
+      <tr><td>(+) Deprec. add-back</td><td>0</td><td>+24.000</td></tr>
+      <tr><td><strong>= FC após IR</strong></td><td><strong>39.600</strong></td><td><strong>47.760</strong></td></tr>
+    </tbody>
+  </table>
+
+  <p>Ignorar a depreciação no cálculo do IR subestimaria o fluxo de caixa real em <strong>R$ 8.160/ano</strong> (= benefício fiscal de R$ 24.000 × 34%). Ao longo de 5 anos, essa diferença acumulada a valor presente pode facilmente inverter a decisão de investimento.</p>
+  </div>
+</details>
+</div>
+
+<!-- ============================================================= -->
+<h2 id="s2">2. Depreciação contábil (fiscal) versus depreciação real</h2>
+
+<h3>2.1 Depreciação contábil — método linear</h3>
+
+<p>A legislação fiscal brasileira adota o método <strong>linear</strong> (ou quotas constantes) como padrão. Nele, o valor depreciável é dividido igualmente pela vida útil do ativo:</p>
+
+<div class="formula">
+  \[\text{Depreciação anual} = \frac{\text{Valor de aquisição} - \text{Valor residual contábil}}{\text{Vida útil fiscal}}\]
+</div>
+
+<p>Na prática, o valor residual contábil adotado pela legislação fiscal é frequentemente <strong>zero</strong>, simplificando para:</p>
+
+<div class="formula">
+  \[D_{\text{linear}} = \frac{V_0}{n} \qquad \Rightarrow \qquad \text{Taxa de depreciação} = \frac{1}{n}\]
+</div>
+
+<p>Onde \(V_0\) é o valor de aquisição e \(n\) é a vida útil fiscal em anos.</p>
+
+<div class="exemplo">
+  <h4>Exemplo — Equipamento industrial de grande porte</h4>
+  <div class="equip-card">
+  <svg width="90" height="72" viewBox="0 0 90 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Gabinete -->
+    <rect x="8" y="20" width="74" height="40" rx="4" fill="#1B6FB8" opacity=".85"/>
+    <!-- Painel frontal -->
+    <rect x="14" y="26" width="34" height="28" rx="2" fill="#0F3D6E"/>
+    <!-- Peça sendo usinada -->
+    <ellipse cx="31" cy="40" rx="10" ry="7" fill="#E0B400" opacity=".9"/>
+    <!-- Ferramenta -->
+    <rect x="44" y="37" width="20" height="6" rx="1" fill="#2A9D5C"/>
+    <polygon points="64,38 70,40 64,42" fill="#2A9D5C"/>
+    <!-- Tela/display -->
+    <rect x="52" y="26" width="24" height="16" rx="2" fill="#0A2540"/>
+    <rect x="54" y="28" width="20" height="12" rx="1" fill="#1B6FB8" opacity=".5"/>
+    <!-- Botões -->
+    <circle cx="56" cy="48" r="2.5" fill="#E0B400"/>
+    <circle cx="63" cy="48" r="2.5" fill="#B23A48"/>
+    <circle cx="70" cy="48" r="2.5" fill="#2A9D5C"/>
+    <!-- Base -->
+    <rect x="4" y="60" width="82" height="8" rx="3" fill="#0F3D6E"/>
+    <!-- Pés -->
+    <rect x="14" y="64" width="8" height="6" rx="1" fill="#0F3D6E"/>
+    <rect x="68" y="64" width="8" height="6" rx="1" fill="#0F3D6E"/>
+  </svg>
+  <div class="equip-info">
+    <strong>Equipamento industrial de grande porte</strong>
+    Máquinas industriais pesadas (tornos CNC, prensas, compressores) têm vida útil fiscal de 5 a 10 anos pela tabela da Receita Federal e custo de aquisição na casa de milhões de reais.
+  </div>
+</div>
+  <p>Uma empresa adquire um equipamento por <strong>R$ 10 milhões</strong>. A legislação fiscal determina vida útil de <strong>10 anos</strong>.</p>
+
+  <details class="resolucao">
+  <summary>Ver resolução</summary>
+  <div class="resolucao-corpo">
+<div class="passo"><strong>Depreciação anual:</strong> R$ 10.000.000 / 10 = <strong>R$ 1.000.000/ano</strong></div>
+  <div class="passo"><strong>Taxa de depreciação:</strong> 1/10 = <strong>10% ao ano</strong></div>
+
+  <table>
+    <thead>
+      <tr><th>Ano</th><th>Depreciação anual (R$)</th><th>Depreciação acumulada (R$)</th><th>Valor contábil líquido (R$)</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>0</td><td>—</td><td>—</td><td>10.000.000</td></tr>
+      <tr><td>1</td><td>1.000.000</td><td>1.000.000</td><td>9.000.000</td></tr>
+      <tr><td>2</td><td>1.000.000</td><td>2.000.000</td><td>8.000.000</td></tr>
+      <tr><td>3</td><td>1.000.000</td><td>3.000.000</td><td>7.000.000</td></tr>
+      <tr><td>5</td><td>1.000.000</td><td>5.000.000</td><td>5.000.000</td></tr>
+      <tr><td>7</td><td>1.000.000</td><td>7.000.000</td><td><strong>3.000.000</strong></td></tr>
+      <tr><td>10</td><td>1.000.000</td><td>10.000.000</td><td>0</td></tr>
+    </tbody>
+  </table>
+
+  <p>No ano 7, o valor <strong>contábil</strong> é R$ 3.000.000. Esse número é a base fiscal para calcular o ganho ou perda de capital em caso de venda antecipada.</p>
+  </div>
+</details>
+</div>
+
+<h3>2.2 Depreciação real — o que realmente acontece com o valor</h3>
+
+<p>A depreciação contábil é uma convenção fiscal. O que ocorre de fato com o <strong>valor de mercado</strong> do equipamento é a depreciação real, que segue a lógica econômica — e quase sempre diverge da fiscal.</p>
+
+<p>Para o mesmo equipamento do exemplo, suponha que a análise técnica indica:</p>
+<ul>
+  <li>Vida útil real: <strong>16 anos</strong></li>
+  <li>Valor residual ao final da vida útil: <strong>4% do valor de compra</strong> = R$ 400.000 (valor de sucata)</li>
+</ul>
+
+<p>Usando um modelo linear para a depreciação real:</p>
+
+<div class="formula">
+  \[D_{\text{real}} = \frac{10.000.000 - 400.000}{16} = \frac{9.600.000}{16} = R\$\; 600.000\text{/ano}\]
+</div>
+
+<table>
+  <thead>
+    <tr><th>Ano</th><th>Valor contábil/fiscal (R$)</th><th>Valor de mercado estimado (R$)</th><th>Diferença (mercado − contábil)</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>0</td><td>10.000.000</td><td>10.000.000</td><td>0</td></tr>
+    <tr><td>3</td><td>7.000.000</td><td>8.200.000</td><td>+1.200.000</td></tr>
+    <tr><td>5</td><td>5.000.000</td><td>7.000.000</td><td>+2.000.000</td></tr>
+    <tr><td>7</td><td><strong>3.000.000</strong></td><td><strong>5.800.000</strong></td><td><strong>+2.800.000</strong></td></tr>
+    <tr><td>10</td><td>0</td><td>4.000.000</td><td>+4.000.000</td></tr>
+    <tr><td>16</td><td>0</td><td>400.000</td><td>+400.000</td></tr>
+  </tbody>
+</table>
+
+<p class="nota">A partir do ano 10, o ativo está totalmente depreciado nos livros (valor contábil zero), mas ainda vale R$ 4 milhões no mercado. Uma venda nesse período geraria ganho de capital sobre o valor total da venda.</p>
+
+<h3>2.3 O problema da venda antes do fim da vida útil fiscal — ganho e perda de capital</h3>
+
+<p>Se a empresa vender o equipamento no <strong>ano 7</strong> pelo valor de mercado estimado de R$ 5.800.000, terá a seguinte situação fiscal:</p>
+
+<div class="conceito">
+  <h4>Cálculo do ganho de capital</h4>
+  <p>
+    Preço de venda: R$ 5.800.000<br>
+    Valor contábil líquido (base fiscal): R$ 3.000.000<br>
+    <strong>Ganho de capital = R$ 5.800.000 − R$ 3.000.000 = R$ 2.800.000</strong>
+  </p>
+  <p>Esse ganho é tributável como receita extraordinária. Com alíquota de 40%: <strong>IR sobre o ganho = R$ 1.120.000</strong>.<br>
+  <strong>FC líquido da venda = R$ 5.800.000 − R$ 1.120.000 = R$ 4.680.000</strong>.</p>
+</div>
+
+<div class="atencao">
+  <h4>Atenção: o efeito da venda funciona nos dois sentidos</h4>
+  <p>Se o bem for vendido por valor <em>acima</em> do contábil: <strong>ganho de capital → IR extra a pagar</strong> (reduz o FC da venda).<br>
+  Se for vendido por valor <em>abaixo</em> do contábil: <strong>perda de capital → crédito fiscal de IR</strong> (aumenta o FC da venda).</p>
+</div>
+
+<h3>2.4 Fórmula do fluxo de caixa na venda do ativo</h3>
+
+<p>Independentemente do sinal do ganho/perda de capital, uma única fórmula resolve ambos os casos:</p>
+
+<div class="formula">
+  \[FC_{\text{venda}} = P_v - \phi \cdot (P_v - VCL)\]
+</div>
+
+<p>onde \(P_v\) é o preço de venda, \(VCL\) é o valor contábil líquido e \(\phi\) é a alíquota de IR. Se \((P_v - VCL) > 0\) (ganho), o IR reduz o FC; se \((P_v - VCL) < 0\) (perda), o IR aumenta o FC via crédito fiscal.</p>
+
+<div class="exemplo">
+  <h4>Exemplo — Venda com perda de capital</h4>
+  <p>Suponha que, no ano 4 do mesmo equipamento (VCL = R$ 6.000.000), a empresa precise vendê-lo emergencialmente por R$ 4.500.000 (abaixo do contábil). Alíquota: 40%.</p>
+  <details class="resolucao">
+  <summary>Ver resolução</summary>
+  <div class="resolucao-corpo">
+<div class="passo"><strong>Ganho de capital:</strong> R$ 4.500.000 − R$ 6.000.000 = <strong>−R$ 1.500.000</strong> (perda)</div>
+  <div class="passo"><strong>IR (crédito fiscal):</strong> −R$ 1.500.000 × 40% = <strong>+R$ 600.000</strong> de crédito</div>
+  <div class="passo"><strong>FC líquido da venda:</strong> R$ 4.500.000 + R$ 600.000 = <strong>R$ 5.100.000</strong></div>
+  <p>A empresa recebe R$ 4.500.000 na venda, mas economiza R$ 600.000 em IR futuro por conta da perda dedutível — totalizando R$ 5.100.000 de benefício real.</p>
+  </div>
+</details>
+</div>
+
+<!-- ============================================================= -->
+<h2 id="s3">3. Depreciação exponencial, amortização e exaustão</h2>
+
+<h3>3.1 Depreciação exponencial (curva real)</h3>
+
+<p>O método linear é uma aproximação conveniente. Na realidade, a maioria dos bens perde valor mais rapidamente nos primeiros anos e mais devagar nos anos seguintes — padrão típico de uma curva exponencial decrescente. Veículos, computadores e equipamentos tecnológicos são os exemplos mais óbvios.</p>
+
+<div class="grid-2">
+  <div class="card">
+    <h4>Método linear</h4>
+    <p>Perda constante a cada período. Simples, exigido pela legislação fiscal, mas subestima a depreciação inicial e superestima a tardia.</p>
+  </div>
+  <div class="card">
+    <h4>Método exponencial (real)</h4>
+    <p>Queda acentuada nos primeiros anos, desaceleração nos posteriores. Reflete melhor a realidade de veículos, computadores e equipamentos de precisão.</p>
+  </div>
+</div>
+
+<p>No modelo exponencial com taxa de depreciação \(\delta\) por período, o valor de mercado no ano \(t\) é:</p>
+
+<div class="formula">
+  \[V_t = V_0 \cdot (1 - \delta)^t\]
+</div>
+
+<p>E a depreciação do período \(t\) (queda de valor de \(t{-}1\) para \(t\)) é:</p>
+
+<div class="formula">
+  \[D_t = V_{t-1} - V_t = V_0 \cdot \delta \cdot (1 - \delta)^{t-1}\]
+</div>
+
+<div class="exemplo">
+  <h4>Exemplo — Caminhão com depreciação exponencial de 25% ao ano</h4>
+  <div class="equip-card">
+  <svg width="90" height="60" viewBox="0 0 90 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Carroceria -->
+    <rect x="28" y="12" width="56" height="30" rx="3" fill="#1B6FB8" opacity=".85"/>
+    <!-- Cabine -->
+    <rect x="6" y="20" width="26" height="22" rx="4" fill="#0F3D6E"/>
+    <!-- Para-brisa -->
+    <rect x="9" y="23" width="18" height="13" rx="2" fill="#B3D4F5" opacity=".8"/>
+    <!-- Grade frontal -->
+    <rect x="6" y="37" width="26" height="5" rx="1" fill="#0A2540"/>
+    <rect x="10" y="38" width="4" height="3" fill="#E0B400" opacity=".8"/>
+    <!-- Rodas -->
+    <circle cx="20" cy="46" r="8" fill="#222"/>
+    <circle cx="20" cy="46" r="4" fill="#555"/>
+    <circle cx="52" cy="46" r="8" fill="#222"/>
+    <circle cx="52" cy="46" r="4" fill="#555"/>
+    <circle cx="70" cy="46" r="8" fill="#222"/>
+    <circle cx="70" cy="46" r="4" fill="#555"/>
+    <!-- Detalhe carroceria -->
+    <line x1="28" y1="27" x2="84" y2="27" stroke="white" stroke-width="1" opacity=".3"/>
+    <!-- Farol -->
+    <rect x="6" y="22" width="4" height="4" rx="1" fill="#FFF176" opacity=".9"/>
+  </svg>
+  <div class="equip-info">
+    <strong>Caminhão de carga</strong>
+    Veículos de carga pesada têm vida útil fiscal de 5 anos (20% ao ano). Sua depreciação real, porém, é mais acelerada nos primeiros anos — tornando a comparação entre valor contábil e valor de mercado especialmente relevante.
+  </div>
+</div>
+  <p>Uma transportadora compra um caminhão por <strong>R$ 400.000</strong>. Análise de mercado indica taxa de depreciação real de <strong>25% ao ano</strong> (modelo exponencial).</p>
+
+  <details class="resolucao">
+  <summary>Ver resolução</summary>
+  <div class="resolucao-corpo">
+<table>
+    <thead>
+      <tr><th>Ano</th><th>Valor de mercado (R$)</th><th>Deprec. do período (R$)</th><th>Valor contábil linear (10 anos) (R$)</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>0</td><td>400.000</td><td>—</td><td>400.000</td></tr>
+      <tr><td>1</td><td>300.000</td><td>100.000</td><td>360.000</td></tr>
+      <tr><td>2</td><td>225.000</td><td>75.000</td><td>320.000</td></tr>
+      <tr><td>3</td><td>168.750</td><td>56.250</td><td>280.000</td></tr>
+      <tr><td>5</td><td>94.922</td><td>31.641</td><td>200.000</td></tr>
+      <tr><td>8</td><td>40.054</td><td>13.351</td><td>80.000</td></tr>
+    </tbody>
+  </table>
+
+  <p>No <strong>ano 3</strong>: valor de mercado real (R$ 168.750) &lt; valor contábil fiscal (R$ 280.000). Se a empresa vender o caminhão nesse momento, haverá <strong>perda de capital</strong> de R$ 111.250 e um crédito fiscal de IR.</p>
+  <p>No <strong>ano 8</strong>: valor de mercado (R$ 40.054) &lt; valor contábil (R$ 80.000). A perda de capital continua, mas agora menor em termos absolutos.</p>
+  <p class="nota">Esse exemplo ilustra por que o modelo de depreciação escolhido importa: a decisão de vender no ano 3 vs. no ano 5 gera impactos fiscais completamente diferentes, que precisam ser modelados no fluxo de caixa.</p>
+  </div>
+</details>
+</div>
+
+<div class="atencao">
+  <h4>Depreciação real ≠ depreciação contábil para fins fiscais</h4>
+  <p>A legislação brasileira <strong>não aceita</strong> a depreciação exponencial para fins de dedução fiscal. O que reduz o imposto é a <strong>depreciação linear</strong> segundo as taxas da Receita Federal. O modelo exponencial serve para estimar o valor de mercado do ativo — fundamental para calcular o ganho/perda de capital em uma eventual venda.</p>
+</div>
+
+<h3>3.2 Amortização</h3>
+
+<p>O conceito de depreciação aplica-se a ativos <em>tangíveis</em> (máquinas, equipamentos, edificações). Para ativos <em>intangíveis</em> — projetos de engenharia, despesas de "posta em marcha", gastos pré-operacionais, patentes e licenças —, o mecanismo equivalente é a <strong>amortização</strong>.</p>
+
+<div class="conceito">
+  <h4>Amortização de projetos de engenharia (Brasil)</h4>
+  <p>As despesas de implantação e os investimentos em projetos de engenharia podem ser amortizados à razão de <strong>20% ao ano</strong> (prazo de 5 anos), conforme regulamentação da Receita Federal. O efeito fiscal é idêntico ao da depreciação: reduz o lucro tributável e gera economia de IR a cada período.</p>
+</div>
+
+<div class="exemplo">
+  <h4>Exemplo — Gastos pré-operacionais de uma planta industrial</h4>
+  <p>Uma empresa do setor de celulose registrou R$ 3.000.000 em gastos pré-operacionais (estudos de viabilidade, testes, comissionamento) antes do início da operação. Esses gastos serão amortizados à razão de 20% ao ano por 5 anos. Alíquota de IR: 34%.</p>
+
+  <details class="resolucao">
+  <summary>Ver resolução</summary>
+  <div class="resolucao-corpo">
+<div class="passo"><strong>Amortização anual:</strong> R$ 3.000.000 × 20% = <strong>R$ 600.000/ano</strong></div>
+  <div class="passo"><strong>Benefício fiscal anual:</strong> R$ 600.000 × 34% = <strong>R$ 204.000/ano</strong> de economia de IR</div>
+  <div class="passo"><strong>VP do benefício fiscal (TMA 12%, 5 anos):</strong>
+    R$ 204.000 × (P/A; 12%; 5) = R$ 204.000 × 3,6048 ≈ <strong>R$ 735.379</strong>
+  </div>
+  <p>A amortização dos gastos pré-operacionais gera um benefício fiscal presente de quase R$ 735.000 — um valor relevante na análise de viabilidade da planta.</p>
+  </div>
+</details>
+</div>
+
+<h3>3.3 Exaustão</h3>
+
+<p>Para recursos naturais esgotáveis — jazidas minerais, reservas de petróleo, florestas plantadas para exploração —, o mecanismo é a <strong>exaustão</strong>. As taxas são regulamentadas pela Receita Federal e geralmente calculadas em função da proporção do recurso extraído em relação ao total da reserva.</p>
+
+<table>
+  <thead>
+    <tr><th>Tipo de ativo</th><th>Mecanismo</th><th>Método típico</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Equipamentos, máquinas</td><td>Depreciação</td><td>Linear (fiscal); exponencial (real)</td></tr>
+    <tr><td>Edificações</td><td>Depreciação</td><td>Linear, 4% ao ano (25 anos)</td></tr>
+    <tr><td>Intangíveis, pré-operacionais</td><td>Amortização</td><td>Linear, 20% ao ano (5 anos)</td></tr>
+    <tr><td>Jazidas minerais, petróleo</td><td>Exaustão</td><td>Proporcional à extração</td></tr>
+  </tbody>
+</table>
+
+<!-- ============================================================= -->
+<h2 id="s4">4. Imposto de Renda: conceitos e efeitos no fluxo de caixa</h2>
+
+<h3>4.1 O que é o Imposto de Renda sobre Pessoas Jurídicas (IRPJ)</h3>
+
+<p>O IRPJ é um tributo que incide sobre o <strong>lucro</strong> das corporações. No Brasil, a alíquota efetiva oscila entre <strong>30% e 50%</strong> dependendo da política fiscal e do porte da empresa, considerando IRPJ (15% + adicional de 10% para lucros acima de R$ 20.000/mês) e CSLL (9%).</p>
+
+<div class="destaque">
+  <strong>Alíquotas de referência (IRPJ + CSLL):</strong>
+  <ul style="margin:6px 0 0">
+    <li>Lucro real (empresas de grande porte): IRPJ 25% + CSLL 9% = <strong>34%</strong></li>
+    <li>Faixa prática usada em estudos de viabilidade: <strong>30% a 40%</strong></li>
+  </ul>
+  <p class="nota">Nos exercícios desta unidade, adota-se uma alíquota única. Em projetos reais, use a alíquota efetiva da empresa.</p>
+</div>
+
+<h3>4.2 Lucro versus fluxo de caixa — a distinção fundamental</h3>
+
+<p>O imposto incide sobre o <strong>lucro contábil</strong>. Mas o que interessa para análise de investimentos é o <strong>fluxo de caixa real</strong>. Os dois divergem por causa de três fatores:</p>
+
+<table>
+  <thead>
+    <tr><th>Item</th><th>Lucro contábil</th><th>Fluxo de caixa</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Depreciação</strong></td>
+      <td>É despesa → reduz lucro</td>
+      <td>Não é saída de caixa → não reduz caixa diretamente</td>
+    </tr>
+    <tr>
+      <td><strong>Amortização de financiamento</strong></td>
+      <td>Não é despesa → não reduz lucro</td>
+      <td>É saída de caixa → reduz caixa</td>
+    </tr>
+    <tr>
+      <td><strong>Vendas a prazo</strong></td>
+      <td>É receita na data da venda → aumenta lucro agora</td>
+      <td>Entrada de caixa só no recebimento</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="exemplo">
+  <h4>Exemplo — A diferença entre lucro e caixa em uma empresa real</h4>
+  <p>Uma empresa fechou o trimestre com os seguintes dados:</p>
+  <ul>
+    <li>Receitas totais: R$ 500.000 (sendo R$ 200.000 ainda a receber, vendidos a prazo)</li>
+    <li>Custos desembolsados: R$ 280.000</li>
+    <li>Depreciação de equipamentos: R$ 40.000</li>
+    <li>Parcela de financiamento paga no período: R$ 30.000</li>
+    <li>Alíquota IR: 34%</li>
+  </ul>
+
+  <details class="resolucao">
+  <summary>Ver resolução</summary>
+  <div class="resolucao-corpo">
+<div class="grid-2">
+    <div class="card">
+      <h4>Demonstração de Resultado (lucro)</h4>
+      <p>Receitas: +500.000<br>
+      Custos: −280.000<br>
+      Depreciação: −40.000<br>
+      <strong>Lucro tributável: 180.000</strong><br>
+      IR (34%): −61.200<br>
+      <strong>Lucro líquido: 118.800</strong></p>
+    </div>
+    <div class="card">
+      <h4>Fluxo de Caixa real</h4>
+      <p>Receitas recebidas: +300.000<br>
+      Custos pagos: −280.000<br>
+      Parc. financiamento: −30.000<br>
+      IR pago: −61.200<br>
+      <br>
+      <strong>Caixa: −71.200</strong></p>
+      <p class="nota">Empresa com lucro de R$ 118.800, mas caixa <em>negativo</em> de R$ 71.200!</p>
+    </div>
+  </div>
+
+  <p>A empresa está lucrativa no papel, mas pode ter dificuldades de caixa — um risco real para empresas que crescem rapidamente com vendas a prazo. O IR é calculado sobre o lucro e precisa ser pago mesmo sem o caixa correspondente ter entrado.</p>
+  </div>
+</details>
+</div>
+
+<h3>4.3 Estrutura do fluxo de caixa após IR</h3>
+
+<p>A montagem mais prática começa pelo <strong>fluxo de caixa bruto</strong> e incorpora o imposto explicitamente. O caminho lógico é:</p>
+
+<ol>
+  <li>Partir do fluxo de caixa operacional bruto (receitas − custos desembolsáveis).</li>
+  <li>Subtrair a depreciação (não é caixa, mas é dedutível) para obter o <strong>lucro tributável</strong>.</li>
+  <li>Calcular o IR sobre o lucro tributável.</li>
+  <li>Somar a depreciação de volta (foi subtraída só para calcular o imposto).</li>
+  <li>Subtrair o IR calculado.</li>
+</ol>
+
+<div class="formula">
+  \[FC_{\text{após IR}} = FC_{\text{bruto}} - \phi \cdot (FC_{\text{bruto}} - D)\]
+</div>
+
+<p>Onde \(\phi\) é a alíquota de IR e \(D\) é a depreciação do período. Reorganizando:</p>
+
+<div class="formula">
+  \[\boxed{\;FC_{\text{após IR}} = FC_{\text{bruto}} \cdot (1 - \phi) + D \cdot \phi\;}\]
+</div>
+
+<div class="conceito">
+  <h4>Leitura da fórmula</h4>
+  <p>O fluxo após IR tem dois componentes:<br>
+  (i) <strong>\(FC_{\text{bruto}} \cdot (1-\phi)\)</strong>: fluxo bruto reduzido pela alíquota;<br>
+  (ii) <strong>\(D \cdot \phi\)</strong>: o benefício fiscal da depreciação — IR que a empresa deixa de pagar. Quanto maior \(D\), maior o benefício. Quando o ativo é totalmente depreciado, esse segundo termo vai a zero.</p>
+</div>
+
+<h3>4.4 Simplificação adotada nesta unidade</h3>
+
+<div class="atencao">
+  <h4>IR apurado e pago no mesmo período</h4>
+  <p>Na prática, há uma defasagem: o IR apurado em um exercício é tipicamente pago no exercício seguinte. Para simplificar, considera-se que o <strong>IR é pago no mesmo período em que é apurado</strong>. Em projetos industriais reais (tratados em unidades posteriores), a defasagem será modelada explicitamente — o que favorece o projeto, pois adia o desembolso do IR.</p>
+</div>
+
+<!-- ============================================================= -->
+<h2 id="s5">5. Montagem da planilha de fluxo de caixa após IR — exemplos resolvidos</h2>
+
+<h3>5.1 Exemplo básico — Projeto simples com depreciação linear</h3>
+
+<div class="exemplo">
+  <h4>Enunciado</h4>
+  <p>Uma empresa avalia a compra de uma máquina por <strong>R$ 500.000</strong>. Vida útil fiscal: <strong>5 anos</strong>, depreciação linear sem valor residual contábil. A máquina gera um fluxo de caixa bruto de <strong>R$ 180.000/ano</strong>. Alíquota de IR: <strong>40%</strong>. TMA: <strong>12% a.a.</strong> Calcule o VPL após IR.</p>
+
+  <details class="resolucao">
+  <summary>Ver resolução</summary>
+  <div class="resolucao-corpo">
+<div class="passo"><strong>Passo 1 — Depreciação anual:</strong> R$ 500.000 / 5 = <strong>R$ 100.000/ano</strong></div>
+  <div class="passo"><strong>Passo 2 — Lucro tributável anual:</strong> R$ 180.000 − R$ 100.000 = <strong>R$ 80.000</strong></div>
+  <div class="passo"><strong>Passo 3 — IR anual:</strong> R$ 80.000 × 40% = <strong>R$ 32.000</strong></div>
+  <div class="passo"><strong>Passo 4 — FC após IR:</strong> R$ 180.000 − R$ 32.000 = <strong>R$ 148.000/ano</strong></div>
+  <p>(Verificação pela fórmula: R$ 180.000 × 0,60 + R$ 100.000 × 0,40 = R$ 108.000 + R$ 40.000 = R$ 148.000 ✓)</p>
+
+  <div class="passo"><strong>Passo 5 — VPL a 12%, série uniforme por 5 anos:</strong>
+    <div class="formula">
+      \[VPL = -500.000 + 148.000 \times \frac{(1{,}12)^5 - 1}{0{,}12 \cdot (1{,}12)^5} = -500.000 + 148.000 \times 3{,}6048 \approx +33.511\]
+    </div>
+  </div>
+
+  <p><strong>Decisão:</strong> VPL = +R$ 33.511 &gt; 0 → <strong>aceitar</strong>.</p>
+  <p class="nota">Sem considerar o IR (fluxo bruto de R$ 180.000): VPL = −500.000 + 180.000 × 3,6048 ≈ +R$ 148.864. Ignorar o IR superestimaria o retorno em R$ 115.353 — erro superior a 300%.</p>
+  </div>
+</details>
+</div>
+
+<h3>5.2 Planilha detalhada com venda do ativo ao final</h3>
+
+<div class="exemplo">
+  <h4>Enunciado</h4>
+  <p>Mesma máquina (R$ 500.000, 5 anos). Ao final do ano 5, a empresa vende o equipamento por <strong>R$ 80.000</strong>. Como o valor contábil no final do ano 5 é zero, toda a receita de venda é ganho de capital. Alíquota IR: 40%. TMA: 12%.</p>
+
+  <details class="resolucao">
+  <summary>Ver resolução</summary>
+  <div class="resolucao-corpo">
+<table class="planilha">
+    <thead>
+      <tr><th>Item</th><th>Ano 0</th><th>Ano 1</th><th>Ano 2</th><th>Ano 3</th><th>Ano 4</th><th>Ano 5</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Investimento</td><td class="negativo">−500.000</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+      <tr><td>FC bruto operacional</td><td>—</td><td>180.000</td><td>180.000</td><td>180.000</td><td>180.000</td><td>180.000</td></tr>
+      <tr><td>(−) Depreciação</td><td>—</td><td>−100.000</td><td>−100.000</td><td>−100.000</td><td>−100.000</td><td>−100.000</td></tr>
+      <tr class="total"><td>= Lucro tributável operacional</td><td>—</td><td>80.000</td><td>80.000</td><td>80.000</td><td>80.000</td><td>80.000</td></tr>
+      <tr><td>Receita de venda do ativo</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>80.000</td></tr>
+      <tr><td>(−) Valor contábil líquido</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>0</td></tr>
+      <tr><td>= Ganho de capital</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>80.000</td></tr>
+      <tr class="total"><td>= Lucro tributável total</td><td>—</td><td>80.000</td><td>80.000</td><td>80.000</td><td>80.000</td><td>160.000</td></tr>
+      <tr class="ir-row"><td>(−) IR (40%)</td><td>—</td><td>−32.000</td><td>−32.000</td><td>−32.000</td><td>−32.000</td><td>−64.000</td></tr>
+      <tr><td>(+) Depreciação (add-back)</td><td>—</td><td>+100.000</td><td>+100.000</td><td>+100.000</td><td>+100.000</td><td>+100.000</td></tr>
+      <tr><td>(+) Receita de venda</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>+80.000</td></tr>
+      <tr class="resultado"><td>= FC após IR</td><td>−500.000</td><td>148.000</td><td>148.000</td><td>148.000</td><td>148.000</td><td>196.000</td></tr>
+    </tbody>
+  </table>
+
+  <div class="passo"><strong>VPL a 12%:</strong>
+    <div class="formula">
+      \[VPL = -500.000 + 148.000 \times (P/A;\,12\%;\,5) + 48.000 \times (P/F;\,12\%;\,5)\]
+      \[= -500.000 + 148.000 \times 3{,}6048 + 48.000 \times 0{,}5674 \approx -500.000 + 533.511 + 27.235 \approx +60.746\]
+    </div>
+  </div>
+  <p class="nota">O FC do ano 5 é R$ 148.000 (operacional) + R$ 80.000 (venda) − R$ 32.000 (IR extra sobre ganho) = R$ 196.000, ou seja R$ 48.000 a mais que os outros anos. Por isso se separa o componente de R$ 48.000 × (P/F).</p>
+
+  <p><strong>Decisão:</strong> VPL = +R$ 60.746 → <strong>aceitar</strong>. A venda residual acrescentou cerca de R$ 27.000 de valor presente ao projeto.</p>
+  </div>
+</details>
+</div>
+
+<h3>5.3 Exemplo com venda antecipada — ganho de capital</h3>
+
+<div class="exemplo">
+  <h4>Enunciado</h4>
+  <p>O equipamento de R$ 10 milhões (VU fiscal 10 anos, D = R$ 1M/ano) é vendido no <strong>ano 7</strong> por R$ 5.800.000. Alíquota IR: 34%.</p>
+
+  <details class="resolucao">
+  <summary>Ver resolução</summary>
+  <div class="resolucao-corpo">
+<div class="passo"><strong>VCL no ano 7:</strong> R$ 10.000.000 − 7 × R$ 1.000.000 = <strong>R$ 3.000.000</strong></div>
+  <div class="passo"><strong>Ganho de capital:</strong> R$ 5.800.000 − R$ 3.000.000 = <strong>R$ 2.800.000</strong></div>
+  <div class="passo"><strong>IR sobre o ganho:</strong> R$ 2.800.000 × 34% = <strong>R$ 952.000</strong></div>
+  <div class="passo"><strong>FC líquido da venda:</strong> R$ 5.800.000 − R$ 952.000 = <strong>R$ 4.848.000</strong></div>
+
+  <p>Sem o tratamento fiscal correto, o analista superestimaria o FC da venda em R$ 952.000 — um erro de 16,4% nessa linha do fluxo.</p>
+  </div>
+</details>
+</div>
+
+<h3>5.4 Exemplo completo — Projeto industrial</h3>
+
+<div class="exemplo">
+  <h4>Enunciado</h4>
+  <p>Uma empresa analisa um projeto com os seguintes dados:</p>
+  <ul>
+    <li>Investimento: <strong>R$ 200.000</strong> (equipamento, depreciação linear em 4 anos)</li>
+    <li>Receita anual: <strong>R$ 150.000</strong></li>
+    <li>Custos operacionais desembolsáveis: <strong>R$ 60.000/ano</strong></li>
+    <li>Valor residual de venda ao final do ano 4: <strong>R$ 20.000</strong></li>
+    <li>Alíquota IR: <strong>40%</strong> &nbsp;|&nbsp; TMA: <strong>15% a.a.</strong></li>
+  </ul>
+
+  <details class="resolucao">
+  <summary>Ver resolução</summary>
+  <div class="resolucao-corpo">
+<div class="passo"><strong>Depreciação anual:</strong> R$ 200.000 / 4 = <strong>R$ 50.000/ano</strong></div>
+  <div class="passo"><strong>FC bruto anual:</strong> R$ 150.000 − R$ 60.000 = <strong>R$ 90.000</strong></div>
+  <div class="passo"><strong>Lucro tributável:</strong> R$ 90.000 − R$ 50.000 = <strong>R$ 40.000</strong></div>
+  <div class="passo"><strong>IR anual:</strong> R$ 40.000 × 40% = <strong>R$ 16.000</strong></div>
+  <div class="passo"><strong>FC operacional após IR:</strong> R$ 90.000 − R$ 16.000 = <strong>R$ 74.000/ano</strong></div>
+  <div class="passo"><strong>Venda no ano 4:</strong> VCL = 0 → Ganho = R$ 20.000 → IR = R$ 8.000 → FC venda = <strong>R$ 12.000</strong></div>
+
+  <table class="planilha">
+    <thead>
+      <tr><th>Ano</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Investimento</td><td class="negativo">−200.000</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+      <tr><td>FC operacional após IR</td><td>—</td><td>74.000</td><td>74.000</td><td>74.000</td><td>74.000</td></tr>
+      <tr><td>FC venda após IR</td><td>—</td><td>—</td><td>—</td><td>—</td><td>12.000</td></tr>
+      <tr class="resultado"><td>FC total após IR</td><td>−200.000</td><td>74.000</td><td>74.000</td><td>74.000</td><td>86.000</td></tr>
+    </tbody>
+  </table>
+
+  <div class="passo"><strong>VPL a 15%:</strong>
+    <div class="formula">
+      \[VPL = -200.000 + 74.000 \times (P/A;\,15\%;\,4) + 12.000 \times (P/F;\,15\%;\,4)\]
+      \[= -200.000 + 74.000 \times 2{,}8550 + 12.000 \times 0{,}5718 \approx -200.000 + 211.270 + 6.862 \approx +18.132\]
+    </div>
+  </div>
+
+  <p><strong>Decisão:</strong> VPL = +R$ 18.132 → <strong>aceitar</strong>. TIR após IR ≈ 18,5% (acima da TMA de 15%).</p>
+  </div>
+</details>
+</div>
+
+<!-- ============================================================= -->
+<h2 id="s6">6. Síntese e fórmulas-chave</h2>
+
+<h3>6.1 Checklist para montar o fluxo de caixa após IR</h3>
+
+<ol>
+  <li><strong>Identifique o investimento inicial</strong> e a vida útil fiscal do ativo.</li>
+  <li><strong>Calcule a depreciação anual</strong> (método linear: investimento ÷ vida útil).</li>
+  <li><strong>Projete o FC bruto</strong> (receitas menos custos desembolsáveis) ano a ano.</li>
+  <li><strong>Calcule o lucro tributável</strong> = FC bruto − depreciação.</li>
+  <li><strong>Calcule o IR</strong> = lucro tributável × alíquota.</li>
+  <li><strong>FC após IR</strong> = FC bruto − IR (ou use a fórmula síntese).</li>
+  <li>Se houver <strong>venda do ativo</strong>: calcule ganho/perda de capital, IR sobre o ganho e FC líquido da venda.</li>
+  <li><strong>Calcule o VPL</strong> usando a TMA definida.</li>
+</ol>
+
+<h3>6.2 Fórmulas-chave</h3>
+
+<table>
+  <thead><tr><th>Nome</th><th>Expressão</th><th>Quando usar</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>Depreciação linear</td>
+      <td>
+        <div class="formula" style="margin:4px 0; padding:8px;">
+          \[D = \frac{V_0}{n}\]
+        </div>
+      </td>
+      <td>Distribuir o custo de aquisição uniformemente pela vida útil fiscal</td>
+    </tr>
+    <tr>
+      <td>Valor contábil líquido</td>
+      <td>
+        <div class="formula" style="margin:4px 0; padding:8px;">
+          \[VCL_t = V_0 - t \cdot D\]
+        </div>
+      </td>
+      <td>Base para calcular ganho/perda de capital em venda</td>
+    </tr>
+    <tr>
+      <td>FC após IR (síntese)</td>
+      <td>
+        <div class="formula" style="margin:4px 0; padding:8px;">
+          \[FC_{\text{IR}} = FC_b \cdot (1-\phi) + D \cdot \phi\]
+        </div>
+      </td>
+      <td>Calcular fluxo operacional após imposto em um passo</td>
+    </tr>
+    <tr>
+      <td>FC da venda do ativo</td>
+      <td>
+        <div class="formula" style="margin:4px 0; padding:8px;">
+          \[FC_v = P_v - \phi \cdot (P_v - VCL)\]
+        </div>
+      </td>
+      <td>Alienação do ativo (com ganho ou com perda de capital)</td>
+    </tr>
+    <tr>
+      <td>Depreciação exponencial</td>
+      <td>
+        <div class="formula" style="margin:4px 0; padding:8px;">
+          \[V_t = V_0 \cdot (1-\delta)^t\]
+        </div>
+      </td>
+      <td>Estimar valor de mercado real do ativo no ano <em>t</em></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>6.3 Os três itens que criam divergência entre lucro e fluxo de caixa</h3>
+
+<table>
+  <thead>
+    <tr><th>Item</th><th>Lucro contábil</th><th>Fluxo de caixa</th><th>Impacto no IR</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Depreciação</strong></td>
+      <td>Reduz lucro (é despesa)</td>
+      <td>Sem saída de caixa direta</td>
+      <td>Reduz IR → <span style="color:var(--verde)"><strong>benefício fiscal</strong></span></td>
+    </tr>
+    <tr>
+      <td><strong>Amortização de financiamento</strong></td>
+      <td>Não reduz lucro (não é despesa)</td>
+      <td>Saída de caixa real</td>
+      <td>Não reduz IR</td>
+    </tr>
+    <tr>
+      <td><strong>Vendas a prazo</strong></td>
+      <td>Aumenta lucro na data da venda</td>
+      <td>Entrada de caixa só no recebimento</td>
+      <td>IR pago antes da entrada do caixa</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>6.4 Cinco erros comuns que esta unidade evita</h3>
+<ol>
+  <li>Ignorar o IR no fluxo de caixa (superestima a rentabilidade).</li>
+  <li>Esquecer de somar a depreciação de volta ao fluxo após calcular o IR (conta a depreciação duas vezes como saída).</li>
+  <li>Não calcular o IR sobre o ganho de capital na venda do ativo.</li>
+  <li>Confundir valor contábil líquido com valor de mercado para calcular a receita de venda.</li>
+  <li>Usar a depreciação real (exponencial) como se fosse deduível fiscalmente — a Receita Federal aceita apenas a linear.</li>
+</ol>
+
+<hr>
+
+<!-- ============================================================= -->
+<h2 id="s7">7. Questões para sala de aula</h2>
+
+<div class="questao">
+  <span class="questao-num">Questão 1</span>
+  <div class="equip-card">
+  <svg width="90" height="72" viewBox="0 0 90 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Estrutura principal -->
+    <rect x="15" y="8" width="60" height="48" rx="4" fill="#1B6FB8" opacity=".85"/>
+    <!-- Câmara de britagem (V) -->
+    <polygon points="25,14 65,14 52,42 38,42" fill="#0A2540" opacity=".9"/>
+    <!-- Placa fixa (esquerda) -->
+    <rect x="25" y="14" width="8" height="28" rx="1" fill="#0F3D6E"/>
+    <!-- Placa móvel (direita, inclinada) -->
+    <polygon points="57,14 65,14 57,42 52,42" fill="#0F3D6E"/>
+    <!-- Pedras caindo -->
+    <polygon points="38,18 44,14 48,20 42,24" fill="#7B8FA0" opacity=".8"/>
+    <polygon points="42,26 47,22 50,28 45,32" fill="#9BAAB8" opacity=".7"/>
+    <!-- Produto saindo (abaixo) -->
+    <rect x="35" y="44" width="20" height="6" rx="1" fill="#2A9D5C" opacity=".7"/>
+    <!-- Volante -->
+    <circle cx="72" cy="22" r="10" fill="none" stroke="#E0B400" stroke-width="3"/>
+    <line x1="72" y1="12" x2="72" y2="32" stroke="#E0B400" stroke-width="2"/>
+    <line x1="62" y1="22" x2="82" y2="22" stroke="#E0B400" stroke-width="2"/>
+    <!-- Base -->
+    <rect x="10" y="56" width="70" height="10" rx="3" fill="#0F3D6E"/>
+    <!-- Parafusos de ancoragem -->
+    <rect x="18" y="62" width="6" height="8" rx="1" fill="#0A2540"/>
+    <rect x="66" y="62" width="6" height="8" rx="1" fill="#0A2540"/>
+  </svg>
+  <div class="equip-info">
+    <strong>Britador de mandíbulas</strong>
+    Equipamento que tritura rochas e minérios entre duas placas de aço (mandíbulas). Amplamente usado em mineração e construção civil. Custo elevado e vida útil longa — contexto típico da Questão 1.
+  </div>
+</div>
+  <p>Uma empresa do setor de beneficiamento mineral adquire um <strong>britador</strong> por <strong>R$ 360.000</strong>. A vida útil fiscal do equipamento é de <strong>6 anos</strong> (depreciação linear, sem valor residual contábil). O britador gera um fluxo de caixa bruto de <strong>R$ 100.000/ano</strong>. Ao final do <strong>ano 4</strong>, a empresa recebe uma proposta de venda do britador por <strong>R$ 140.000</strong>. A alíquota de IR é de <strong>34%</strong> e a TMA da empresa é de <strong>12% a.a.</strong></p>
+  <ol type="a">
+    <li>Calcule o FC após IR nos anos 1 a 4 (operacional).</li>
+    <li>Calcule o FC líquido da venda do britador ao final do ano 4.</li>
+    <li>Monte o fluxo de caixa completo e calcule o VPL do projeto (considerando a venda no ano 4). O projeto deve ser aceito?</li>
+    <li>Compare com o VPL caso a empresa mantivesse o britador até o final dos 6 anos (sem venda antecipada, sem valor residual). A venda antecipada é interessante?</li>
+  </ol>
+</div>
+
+<div class="questao">
+  <span class="questao-num">Questão 2</span>
+  <div class="equip-card">
+  <svg width="90" height="72" viewBox="0 0 90 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Corpo da empilhadeira -->
+    <rect x="20" y="28" width="44" height="28" rx="4" fill="#1B6FB8" opacity=".9"/>
+    <!-- Cabine do operador -->
+    <rect x="42" y="16" width="22" height="24" rx="3" fill="#0F3D6E"/>
+    <!-- Para-brisa -->
+    <rect x="44" y="18" width="18" height="16" rx="2" fill="#B3D4F5" opacity=".7"/>
+    <!-- Mastro vertical -->
+    <rect x="14" y="6" width="6" height="54" rx="2" fill="#0F3D6E"/>
+    <rect x="12" y="6" width="2" height="54" rx="1" fill="#0A2540"/>
+    <!-- Garfos (forks) -->
+    <rect x="2" y="50" width="16" height="4" rx="1" fill="#E0B400"/>
+    <rect x="2" y="57" width="16" height="4" rx="1" fill="#E0B400"/>
+    <!-- Carga em palete -->
+    <rect x="2" y="38" width="14" height="12" rx="1" fill="#9BAAB8" opacity=".8"/>
+    <rect x="4" y="40" width="10" height="3" rx="1" fill="#7B8FA0"/>
+    <rect x="4" y="44" width="10" height="3" rx="1" fill="#7B8FA0"/>
+    <!-- Contrapeso traseiro -->
+    <rect x="56" y="36" width="14" height="20" rx="3" fill="#0A2540"/>
+    <!-- Rodas -->
+    <circle cx="32" cy="58" r="8" fill="#222"/>
+    <circle cx="32" cy="58" r="4" fill="#444"/>
+    <circle cx="58" cy="58" r="8" fill="#222"/>
+    <circle cx="58" cy="58" r="4" fill="#444"/>
+    <!-- Luz -->
+    <circle cx="64" cy="22" r="3" fill="#FFF176" opacity=".9"/>
+  </svg>
+  <div class="equip-info">
+    <strong>Empilhadeira elétrica / a combustão</strong>
+    Equipamento de movimentação interna de cargas em armazéns e centros de distribuição. Vida útil fiscal de 5 anos. Frotas de empilhadeiras são ativos de alto valor e uso intensivo — candidatos naturais à análise de substituição.
+  </div>
+</div>
+  <p>Uma empresa de logística considera substituir sua frota de empilhadeiras. A nova frota custa <strong>R$ 500.000</strong> e tem vida útil fiscal de <strong>5 anos</strong> (depreciação linear). Além do custo do equipamento, a empresa incorre em gastos de implantação e treinamento de <strong>R$ 50.000</strong>, que serão amortizados à razão de <strong>20% ao ano</strong> por 5 anos. A nova frota proporcionará uma <strong>economia operacional</strong> (redução de custos) de <strong>R$ 180.000/ano</strong>. Ao final dos 5 anos, estima-se que os equipamentos valham <strong>R$ 60.000</strong> no mercado (valor de sucata). A alíquota de IR é <strong>34%</strong> e a TMA é <strong>10% a.a.</strong></p>
+  <ol type="a">
+    <li>Calcule a depreciação anual do equipamento e a amortização anual dos gastos de implantação.</li>
+    <li>Calcule o FC após IR nos anos 1 a 5, considerando tanto a depreciação quanto a amortização como deduções fiscais.</li>
+    <li>Calcule o FC líquido da venda ao final do ano 5 (considere que o VCL do equipamento é zero ao final dos 5 anos).</li>
+    <li>Monte o fluxo de caixa completo e calcule o VPL. A substituição da frota é economicamente justificada?</li>
+  </ol>
+</div>
+
+<hr>
+
+<!-- ============================================================= GABARITO -->
+<div class="gabarito">
+  <h3>Gabarito das Questões</h3>
+
+  <div class="gabarito-item">
+    <strong>Questão 1</strong>
+
+    <p><strong>(a) FC operacional após IR — anos 1 a 4:</strong></p>
+    <p>Depreciação anual: R$ 360.000 / 6 = <strong>R$ 60.000/ano</strong></p>
+    <p>Lucro tributável: R$ 100.000 − R$ 60.000 = R$ 40.000</p>
+    <p>IR: R$ 40.000 × 34% = R$ 13.600</p>
+    <p>FC operacional após IR: R$ 100.000 − R$ 13.600 = <strong>R$ 86.400/ano</strong></p>
+    <p>(Verificação: R$ 100.000 × 0,66 + R$ 60.000 × 0,34 = R$ 66.000 + R$ 20.400 = R$ 86.400 ✓)</p>
+
+    <p><strong>(b) FC líquido da venda no ano 4:</strong></p>
+    <p>VCL no ano 4: R$ 360.000 − 4 × R$ 60.000 = R$ 360.000 − R$ 240.000 = <strong>R$ 120.000</strong></p>
+    <p>Ganho de capital: R$ 140.000 − R$ 120.000 = <strong>R$ 20.000</strong></p>
+    <p>IR sobre o ganho: R$ 20.000 × 34% = <strong>R$ 6.800</strong></p>
+    <p>FC líquido da venda: R$ 140.000 − R$ 6.800 = <strong>R$ 133.200</strong></p>
+
+    <p><strong>(c) Fluxo de caixa com venda antecipada e VPL:</strong></p>
+    <table>
+      <thead><tr><th>Ano</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th></tr></thead>
+      <tbody>
+        <tr><td>Investimento</td><td>−360.000</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td>FC operac. após IR</td><td>—</td><td>86.400</td><td>86.400</td><td>86.400</td><td>86.400</td></tr>
+        <tr><td>FC venda após IR</td><td>—</td><td>—</td><td>—</td><td>—</td><td>133.200</td></tr>
+        <tr><td><strong>FC total</strong></td><td>−360.000</td><td>86.400</td><td>86.400</td><td>86.400</td><td>219.600</td></tr>
+      </tbody>
+    </table>
+
+    <div class="formula">
+      \[VPL = -360.000 + 86.400 \times (P/A;\,12\%;\,4) + 133.200 \times (P/F;\,12\%;\,4)\]
+      \[= -360.000 + 86.400 \times 3{,}0373 + 133.200 \times 0{,}6355 \approx -360.000 + 262.423 + 84.629 \approx -12.948\]
+    </div>
+    <p><strong>VPL ≈ −R$ 12.948 → rejeitar</strong> (com venda no ano 4 ao preço de R$ 140.000).</p>
+
+    <p><strong>(d) VPL sem venda antecipada (6 anos, sem residual):</strong></p>
+    <p>FC após IR = R$ 86.400/ano por 6 anos.</p>
+    <div class="formula">
+      \[VPL = -360.000 + 86.400 \times (P/A;\,12\%;\,6) = -360.000 + 86.400 \times 4{,}1114 \approx -360.000 + 355.225 \approx -4.775\]
+    </div>
+    <p><strong>VPL ≈ −R$ 4.775 → também negativo</strong>. Em ambos os cenários o VPL é negativo — o projeto em si não supera a TMA de 12%. A venda antecipada piora levemente o resultado (−R$ 12.948 vs. −R$ 4.775), pois o preço de R$ 140.000 não compensa o valor presente dos fluxos operacionais perdidos nos anos 5 e 6.</p>
+  </div>
+
+  <div class="gabarito-item">
+    <strong>Questão 2</strong>
+
+    <p><strong>(a) Depreciação e amortização anuais:</strong></p>
+    <p>Depreciação do equipamento: R$ 500.000 / 5 = <strong>R$ 100.000/ano</strong></p>
+    <p>Amortização dos gastos de implantação: R$ 50.000 × 20% = <strong>R$ 10.000/ano</strong></p>
+    <p>Total de deduções fiscais: R$ 100.000 + R$ 10.000 = <strong>R$ 110.000/ano</strong></p>
+
+    <p><strong>(b) FC após IR — anos 1 a 5:</strong></p>
+    <p>FC bruto = economia operacional = R$ 180.000/ano</p>
+    <p>Lucro tributável: R$ 180.000 − R$ 110.000 = R$ 70.000</p>
+    <p>IR: R$ 70.000 × 34% = R$ 23.800</p>
+    <p>FC operacional após IR: R$ 180.000 − R$ 23.800 = <strong>R$ 156.200/ano</strong></p>
+    <p>(Verificação: R$ 180.000 × 0,66 + R$ 110.000 × 0,34 = R$ 118.800 + R$ 37.400 = R$ 156.200 ✓)</p>
+
+    <p><strong>(c) FC líquido da venda ao final do ano 5:</strong></p>
+    <p>VCL do equipamento no ano 5: R$ 500.000 − 5 × R$ 100.000 = <strong>R$ 0</strong></p>
+    <p>VCL dos gastos de implantação no ano 5: R$ 50.000 − 5 × R$ 10.000 = <strong>R$ 0</strong></p>
+    <p>Preço de venda: R$ 60.000 | Ganho de capital: R$ 60.000 − 0 = R$ 60.000</p>
+    <p>IR sobre o ganho: R$ 60.000 × 34% = R$ 20.400</p>
+    <p>FC líquido da venda: R$ 60.000 − R$ 20.400 = <strong>R$ 39.600</strong></p>
+
+    <p><strong>(d) Fluxo de caixa completo e VPL:</strong></p>
+    <table>
+      <thead><tr><th>Ano</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr></thead>
+      <tbody>
+        <tr><td>Investimento total</td><td>−550.000</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td>FC operac. após IR</td><td>—</td><td>156.200</td><td>156.200</td><td>156.200</td><td>156.200</td><td>156.200</td></tr>
+        <tr><td>FC venda após IR</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>39.600</td></tr>
+        <tr><td><strong>FC total</strong></td><td>−550.000</td><td>156.200</td><td>156.200</td><td>156.200</td><td>156.200</td><td>195.800</td></tr>
+      </tbody>
+    </table>
+
+    <p class="nota">Investimento total no ano 0 = R$ 500.000 (equipamento) + R$ 50.000 (implantação) = R$ 550.000.</p>
+
+    <div class="formula">
+      \[VPL = -550.000 + 156.200 \times (P/A;\,10\%;\,5) + 39.600 \times (P/F;\,10\%;\,5)\]
+      \[= -550.000 + 156.200 \times 3{,}7908 + 39.600 \times 0{,}6209\]
+      \[\approx -550.000 + 592.143 + 24.588 \approx +66.731\]
+    </div>
+    <p><strong>VPL ≈ +R$ 66.731 → aceitar.</strong> A substituição da frota cria valor para a empresa: o VPL positivo indica que a economia operacional gerada supera o custo de capital de 10% exigido pela empresa.</p>
+  </div>
+</div>
+
+<hr>
+<p class="nota">Material elaborado com base no conteúdo da Unidade 5 — Depreciação e Imposto de Renda (FC1 — Prof. Paulo Parente, UFC). Para revisão, refaça cada exemplo e questão com valores alternativos e confira se a fórmula-síntese do FC após IR bate com a montagem linha a linha da planilha.</p>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Orçamento de Capital Concorrentes — Material Didático</title>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']], processEscapes: true, tags: 'none' },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] },
+  startup: { typeset: false }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script>window.addEventListener('load', function(){ MathJax.typesetPromise(); });</script>
+<style>
+  :root{
+    --azul:#0F3D6E; --azul2:#1B6FB8; --cinza:#F5F7FA; --cinza2:#E5EAF1;
+    --verde:#1B7F4F; --amarelo:#F7F1D6; --vermelho:#B23A48; --borda:#CBD5E1;
+    --texto:#1F2937;
+  }
+  *{box-sizing:border-box}
+  body{ font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    color:var(--texto); line-height:1.65; margin:0; background:#fff; }
+  .container{max-width:920px; margin:0 auto; padding:32px 28px 80px;}
+  header{ background:linear-gradient(135deg,var(--azul) 0%,var(--azul2) 100%);
+    color:white; padding:36px 28px; margin:-32px -28px 28px; border-radius:0 0 14px 14px; }
+  header .eyebrow{opacity:.8;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;}
+  header h1{margin:6px 0 4px;font-size:2.0rem;font-weight:700;}
+  header p{margin:0;opacity:.92}
+  h2{color:var(--azul);border-bottom:3px solid var(--azul2);padding-bottom:6px;margin-top:42px;font-size:1.55rem;}
+  h3{color:var(--azul2);margin-top:28px;font-size:1.2rem;}
+  h4{color:var(--texto);margin-top:18px;font-size:1.05rem;}
+  p,li{font-size:1rem;}
+  ul,ol{padding-left:22px}
+  li{margin-bottom:6px}
+  code{background:var(--cinza);padding:2px 6px;border-radius:4px;font-size:.95em;}
+  .toc{background:var(--cinza);border:1px solid var(--cinza2);border-radius:10px;padding:18px 22px;margin:18px 0 6px;}
+  .toc h3{margin-top:0;color:var(--azul)}
+  .toc ol{margin:0}
+  .toc a{color:var(--azul);text-decoration:none}
+  .toc a:hover{text-decoration:underline}
+  .destaque{background:var(--amarelo);border-left:5px solid #E0B400;padding:14px 18px;border-radius:6px;margin:16px 0;}
+  .conceito{background:#EAF3FB;border-left:5px solid var(--azul2);padding:14px 18px;border-radius:6px;margin:16px 0;}
+  .conceito h4{margin-top:0;color:var(--azul)}
+  .atencao{background:#FBEAEA;border-left:5px solid var(--vermelho);padding:14px 18px;border-radius:6px;margin:16px 0;}
+  .atencao h4{margin-top:0;color:var(--vermelho)}
+  .exemplo{background:#EFF8F2;border-left:5px solid var(--verde);padding:16px 20px;border-radius:6px;margin:18px 0;}
+  .exemplo h4{margin-top:0;color:var(--verde)}
+  .formula{background:#FAFAFA;border:1px solid var(--cinza2);border-radius:8px;padding:14px;text-align:center;margin:14px 0;}
+  table{border-collapse:collapse;width:100%;margin:14px 0;font-size:.95rem;}
+  th,td{border:1px solid var(--borda);padding:8px 10px;text-align:left;}
+  th{background:var(--azul);color:white;font-weight:600;}
+  tr:nth-child(even) td{background:#F8FAFC;}
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  @media(max-width:680px){.grid-2{grid-template-columns:1fr}}
+  .card{background:white;border:1px solid var(--cinza2);border-radius:10px;padding:14px 16px;}
+  .card h4{margin-top:0}
+  .passo{background:#F5F7FA;border-left:4px solid var(--azul2);padding:10px 14px;border-radius:4px;margin:10px 0;font-size:.97rem;}
+  .passo strong{color:var(--azul)}
+  .nota{font-size:.88rem;color:#555;font-style:italic;}
+  .badges{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 18px;}
+  .badge{background:var(--cinza2);color:var(--azul);border-radius:999px;padding:4px 12px;font-size:.78rem;font-weight:600;}
+  hr{border:none;border-top:1px dashed var(--borda);margin:30px 0;}
+  .planilha td:first-child{font-weight:600;background:#F0F4FA;}
+  .planilha td.positivo{color:var(--verde);font-weight:600;}
+  .planilha td.negativo{color:var(--vermelho);font-weight:600;}
+  .planilha tr.total > td{background:#E8F0FC !important;font-weight:700;}
+  .planilha tr.resultado > td{background:var(--azul) !important;color:white !important;font-weight:700;}
+  .questao{border:2px solid var(--azul2);border-radius:10px;padding:20px 22px;margin:20px 0;background:#fff;}
+  .questao-num{background:var(--azul2);color:white;border-radius:999px;padding:2px 12px;font-size:.85rem;font-weight:700;display:inline-block;margin-bottom:10px;}
+  .gabarito{background:#F0FAF4;border:2px solid var(--verde);border-radius:10px;padding:20px 22px;margin:20px 0;}
+  .gabarito h3{color:var(--verde);margin-top:0;border-bottom:2px solid var(--verde);padding-bottom:6px;}
+  .gabarito-item{margin-bottom:20px;padding-bottom:16px;border-bottom:1px dashed #9ADBB8;}
+  .gabarito-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+  .equip-card{display:flex;align-items:center;gap:16px;background:#F0F6FF;border:1px solid var(--cinza2);border-radius:8px;padding:10px 14px;margin-bottom:12px;}
+  .equip-card svg{flex-shrink:0;}
+  .equip-card .equip-info{font-size:.88rem;color:#444;line-height:1.4;}
+  .equip-card .equip-info strong{color:var(--azul);font-size:.93rem;display:block;margin-bottom:2px;}
+  .carteira-table td:first-child{font-weight:700;background:#F0F4FA;}
+  .carteira-table tr.winner > td{background:#E8F7EE !important;font-weight:700;color:var(--verde);}
+  details.resolucao{margin-top:12px;}
+  details.resolucao > summary{cursor:pointer;background:var(--azul2);color:white;padding:9px 16px;border-radius:6px;font-weight:600;font-size:.93rem;list-style:none;display:flex;align-items:center;gap:8px;user-select:none;transition:background .15s;}
+  details.resolucao > summary::-webkit-details-marker{display:none;}
+  details.resolucao > summary::before{content:"▶";font-size:.72rem;transition:transform .2s;flex-shrink:0;}
+  details.resolucao[open] > summary::before{transform:rotate(90deg);}
+  details.resolucao > summary:hover{background:var(--azul);}
+  details.resolucao .resolucao-corpo{border:1px solid var(--cinza2);border-top:none;border-radius:0 0 6px 6px;padding:14px 16px 10px;background:#FAFBFC;}
+  details.resolucao .resolucao-corpo .passo{background:#F0F4FA;}
+  @media print{
+    header{background:var(--azul) !important;color:white !important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .toc,.destaque,.conceito,.atencao,.exemplo,.card,.formula,.passo{break-inside:avoid;}
+    h2,h3{break-after:avoid;}
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <div class="eyebrow">Finanças Corporativas I — UFC / FEAAC</div>
+  <h1>Unidade 3: Orçamento de Capital Concorrentes</h1>
+  <p>Restrição de capital · Diferentes níveis de escala · Projetos com vida útil distinta</p>
+</header>
+
+<div class="toc">
+  <h3>Sumário</h3>
+  <ol>
+    <li><a href="#s1">Tipos de Relação entre Investimentos</a></li>
+    <li><a href="#s2">Restrição de Capital</a></li>
+    <li><a href="#s3">Diferentes Níveis de Escala</a></li>
+    <li><a href="#s4">Projetos com Vida Útil Distintos</a></li>
+    <li><a href="#questoes">Questões para Sala de Aula</a></li>
+    <li><a href="#gabarito">Gabarito</a></li>
+  </ol>
+</div>
+
+<!-- ========== SECTION 1 ========== -->
+<h2 id="s1">1. Tipos de Relação entre Investimentos</h2>
+
+<p>Quando uma empresa avalia múltiplos projetos simultaneamente, a relação entre eles determina o método de análise mais adequado:</p>
+
+<div class="grid-2">
+  <div class="card">
+    <h4>Independentes</h4>
+    <p>A decisão de aceitar ou rejeitar um projeto não interfere na decisão sobre os demais. Cada projeto é avaliado isoladamente pelo critério VPL &gt; 0.</p>
+  </div>
+  <div class="card">
+    <h4>Dependentes</h4>
+    <p>A viabilidade de um projeto está condicionada à aceitação de outro. Ex.: um projeto de expansão só faz sentido se o projeto de infraestrutura for aprovado.</p>
+  </div>
+</div>
+<div class="card" style="margin-top:12px">
+  <h4>Mutuamente excludentes</h4>
+  <p>A escolha de um projeto elimina os demais — apenas um pode ser executado. É o caso mais frequente em substituição de equipamentos ou escolha de tecnologia. Aqui surgem os três <strong>problemas típicos</strong> desta unidade.</p>
+</div>
+
+<div class="destaque">
+  <strong>Problemas típicos diante de múltiplos projetos:</strong> (1) restrição de capital — não há recursos para todos os projetos viáveis; (2) diferença de escala — projetos com investimentos iniciais muito distintos; (3) vida útil diferente — projetos com horizontes temporais incomparáveis diretamente.
+</div>
+
+<!-- ========== SECTION 2 ========== -->
+<h2 id="s2">2. Restrição de Capital</h2>
+
+<div class="conceito">
+  <h4>Conceito</h4>
+  <p>Mesmo que múltiplos projetos apresentem VPL positivo, os recursos disponíveis para investimento podem ser limitados. Essa situação configura uma <strong>restrição de capital</strong>: nem todos os projetos viáveis podem ser executados.</p>
+</div>
+
+<h3>Metodologia em duas etapas</h3>
+<div class="passo"><strong>Etapa 1 —</strong> Avaliar cada projeto isoladamente (VPL e TIR). Eliminar projetos com VPL &lt; 0.</div>
+<div class="passo"><strong>Etapa 2 —</strong> Montar carteiras de projetos que respeitem o limite orçamentário. Com \(n\) projetos viáveis, existem \(2^n - 1\) carteiras possíveis. Selecionar a de maior VPL total.</div>
+
+<div class="atencao">
+  <h4>Atenção — Análise Incremental para excludentes</h4>
+  <p>Quando os projetos são <em>mutuamente excludentes</em>, o maior VPL não é suficiente — é preciso verificar se o <strong>incremento de investimento</strong> entre alternativas se justifica. Calcula-se o fluxo de caixa incremental e sua TIR: se TIR<sub>incremental</sub> &gt; TMA, o investimento adicional cria valor.</p>
+</div>
+
+<!-- EXEMPLO 1 -->
+<div class="exemplo">
+  <h4>Exemplo 1 — Carteira ótima com restrição orçamentária</h4>
+  <div class="equip-card">
+    <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Solar panels -->
+      <rect x="4" y="20" width="20" height="14" rx="1" fill="#1B6FB8" opacity=".85"/>
+      <rect x="4" y="20" width="10" height="7" rx="0" fill="#1455A0" opacity=".6"/>
+      <rect x="14" y="20" width="10" height="7" rx="0" fill="#1455A0" opacity=".6"/>
+      <rect x="4" y="27" width="10" height="7" rx="0" fill="#1455A0" opacity=".6"/>
+      <rect x="14" y="27" width="10" height="7" rx="0" fill="#1455A0" opacity=".6"/>
+      <rect x="28" y="20" width="20" height="14" rx="1" fill="#1B6FB8" opacity=".85"/>
+      <rect x="28" y="20" width="10" height="7" fill="#1455A0" opacity=".6"/>
+      <rect x="38" y="20" width="10" height="7" fill="#1455A0" opacity=".6"/>
+      <rect x="28" y="27" width="10" height="7" fill="#1455A0" opacity=".6"/>
+      <rect x="38" y="27" width="10" height="7" fill="#1455A0" opacity=".6"/>
+      <line x1="14" y1="34" x2="14" y2="42" stroke="#555" stroke-width="1.5"/>
+      <line x1="38" y1="34" x2="38" y2="42" stroke="#555" stroke-width="1.5"/>
+      <rect x="6" y="42" width="40" height="3" rx="1" fill="#888"/>
+      <circle cx="28" cy="12" r="7" fill="#F59E0B" opacity=".9"/>
+      <line x1="28" y1="2" x2="28" y2="5" stroke="#F59E0B" stroke-width="2"/>
+      <line x1="28" y1="51" x2="28" y2="48" stroke="#F59E0B" stroke-width="2"/>
+      <line x1="19" y1="5" x2="21" y2="7" stroke="#F59E0B" stroke-width="2"/>
+      <line x1="37" y1="5" x2="35" y2="7" stroke="#F59E0B" stroke-width="2"/>
+    </svg>
+    <div class="equip-info">
+      <strong>Miniusinas Solares — Nordeste S.A.</strong>
+      Empresa com 5 propostas de investimento (A–E) e orçamento limitado a R$ 2.000.000. TMA = 2% a.m. Projetos com 12 meses de duração.
+    </div>
+  </div>
+
+  <p>Fluxos de caixa mensais (R$):</p>
+  <div style="overflow-x:auto">
+  <table>
+    <thead><tr><th>Mês</th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th></tr></thead>
+    <tbody>
+      <tr><td><strong>0</strong></td><td>(500.000)</td><td>(750.000)</td><td>(1.000.000)</td><td>(1.100.000)</td><td>(1.350.000)</td></tr>
+      <tr><td>1–11</td><td>50.000</td><td>60.000</td><td>60.000</td><td>80.000–90.000*</td><td>100.000</td></tr>
+      <tr><td><strong>12</strong></td><td>250.000</td><td>300.000</td><td>450.000</td><td>600.000</td><td>600.000</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="nota">*Projeto D: fluxos crescem de R$ 80.000 (mês 1) a R$ 90.000 (mês 11).</p>
+
+  <details class="resolucao">
+  <summary>Ver resolução</summary>
+  <div class="resolucao-corpo">
+
+  <div class="passo"><strong>Passo 1 — VPL de cada projeto</strong> (TMA = 2% a.m.)<br>
+  Usando \(\text{VPL} = -I_0 + \sum_{t=1}^{12} \frac{FC_t}{(1{,}02)^t}\):</div>
+
+  <table>
+    <thead><tr><th>Projeto</th><th>VPL</th><th>TIR (a.m.)</th><th>Viável?</th></tr></thead>
+    <tbody>
+      <tr><td>A</td><td class="positivo">R$ 186.466</td><td>6,56%</td><td>✓ Sim</td></tr>
+      <tr><td>B</td><td class="positivo">R$ 73.759</td><td>3,29%</td><td>✓ Sim</td></tr>
+      <tr><td>C</td><td class="negativo">(R$ 57.967)</td><td>1,26%</td><td>✗ Não</td></tr>
+      <tr><td>D</td><td class="positivo">R$ 203.041</td><td>4,19%</td><td>✓ Sim</td></tr>
+      <tr><td>E</td><td class="positivo">R$ 101.781</td><td>2,96%</td><td>✓ Sim</td></tr>
+    </tbody>
+  </table>
+
+  <div class="passo"><strong>Passo 2 — Eliminar projeto inviável</strong><br>
+  Projeto C (VPL &lt; 0) é descartado. Projetos viáveis: A, B, D, E.</div>
+
+  <div class="passo"><strong>Passo 3 — Carteiras dentro da restrição de R$ 2.000.000</strong></div>
+
+  <table class="carteira-table">
+    <thead><tr><th>Carteira</th><th>Investimento Total</th><th>VPL Total</th></tr></thead>
+    <tbody>
+      <tr><td>A + B</td><td>R$ 1.250.000</td><td>R$ 260.225</td></tr>
+      <tr><td>A + D</td><td>R$ 1.600.000</td><td>R$ 389.507</td></tr>
+      <tr><td>A + E</td><td>R$ 1.850.000</td><td>R$ 288.247</td></tr>
+      <tr class="winner"><td>B + D ★</td><td>R$ 1.850.000</td><td><strong>R$ 276.800</strong></td></tr>
+      <tr class="winner"><td>A + D ★★</td><td>R$ 1.600.000</td><td><strong>R$ 389.507</strong></td></tr>
+    </tbody>
+  </table>
+
+  <div class="passo"><strong>Decisão:</strong> A carteira <strong>A + D</strong> maximiza a geração de valor com VPL total de R$ 389.507 e investimento de R$ 1.600.000 — dentro do limite de R$ 2.000.000. Sobram R$ 400.000 que podem ser aplicados à TMA.</div>
+
+  </div>
+  </details>
+</div>
+
+<h3>Análise Incremental para projetos mutuamente excludentes</h3>
+<p>Quando os projetos são mutuamente excludentes — só um pode ser escolhido — a comparação direta pelo VPL pode ser enganosa se os investimentos iniciais forem muito diferentes. O procedimento correto é a <strong>análise incremental</strong>.</p>
+
+<div class="formula">
+\[ \text{Fluxo incremental} = FC_{\text{maior}} - FC_{\text{menor}} \]
+\[ \text{Se } TIR_{\text{incremental}} > TMA \Rightarrow \text{escolher o projeto de maior investimento} \]
+</div>
+
+<!-- EXEMPLO 2 -->
+<div class="exemplo">
+  <h4>Exemplo 2 — Análise incremental entre 6 alternativas excludentes</h4>
+  <p>Uma empresa avalia seis alternativas de investimento mutuamente excludentes. TMA = 12% a.a.</p>
+
+  <table>
+    <thead><tr><th>Alt.</th><th>Investimento</th><th>Resultado anual</th><th>Valor residual</th><th>Vida útil</th></tr></thead>
+    <tbody>
+      <tr><td>I</td><td>R$ 100.000</td><td>R$ 8.200</td><td>R$ 100.000</td><td>10 anos</td></tr>
+      <tr><td>II</td><td>R$ 130.000</td><td>R$ 16.300</td><td>R$ 130.000</td><td>10 anos</td></tr>
+      <tr><td>III</td><td>R$ 152.000</td><td>R$ 21.900</td><td>R$ 152.000</td><td>10 anos</td></tr>
+      <tr><td>IV</td><td>R$ 184.000</td><td>R$ 25.900</td><td>R$ 184.000</td><td>10 anos</td></tr>
+      <tr><td>V</td><td>R$ 220.000</td><td>R$ 29.200</td><td>R$ 220.000</td><td>10 anos</td></tr>
+      <tr><td>VI</td><td>R$ 260.000</td><td>R$ 31.200</td><td>R$ 260.000</td><td>10 anos</td></tr>
+    </tbody>
+  </table>
+  <p class="nota">Valor residual = investimento inicial (sem ganho/perda de capital). TIR = resultado anual ÷ investimento inicial.</p>
+
+  <details class="resolucao">
+  <summary>Ver resolução</summary>
+  <div class="resolucao-corpo">
+
+  <div class="passo"><strong>Passo 1 — VPL e TIR individuais</strong><br>
+  Como residual = investimento, a TIR é direta: <em>TIR = resultado / investimento</em>. O VPL simplifica para: \(\text{VPL} = (\text{Resultado} - I_0 \times 0{,}12) \times (P/A;\,12\%;\,10)\), onde \((P/A;12\%;10) = 5{,}6502\).</div>
+
+  <table>
+    <thead><tr><th>Alt.</th><th>TIR</th><th>VPL</th><th>Viável?</th></tr></thead>
+    <tbody>
+      <tr><td>I</td><td>8,2%</td><td class="negativo">(R$ 21.471)</td><td>✗</td></tr>
+      <tr><td>II</td><td>12,5%</td><td class="positivo">R$ 3.955</td><td>✓</td></tr>
+      <tr><td>III</td><td>14,4%</td><td class="positivo">R$ 20.680</td><td>✓</td></tr>
+      <tr><td>IV</td><td>14,1%</td><td class="positivo">R$ 21.584</td><td>✓</td></tr>
+      <tr><td>V</td><td>13,3%</td><td class="positivo">R$ 15.820</td><td>✓</td></tr>
+      <tr><td>VI</td><td>12,0%</td><td>R$ 0</td><td>Indiferente</td></tr>
+    </tbody>
+  </table>
+
+  <div class="passo"><strong>Passo 2 — Análise incremental</strong> (ordenado do menor para o maior investimento, a partir de II)</div>
+
+  <table>
+    <thead><tr><th>Comparação</th><th>ΔInvestimento</th><th>ΔResultado anual</th><th>TIR incremental</th><th>Decisão</th></tr></thead>
+    <tbody>
+      <tr><td>II vs I</td><td>R$ 30.000</td><td>R$ 8.100</td><td class="positivo">27,0%</td><td>✓ Aceitar II</td></tr>
+      <tr><td>III vs II</td><td>R$ 22.000</td><td>R$ 5.600</td><td class="positivo">25,5%</td><td>✓ Aceitar III</td></tr>
+      <tr><td>IV vs III</td><td>R$ 32.000</td><td>R$ 4.000</td><td class="positivo">12,5%</td><td>✓ Aceitar IV</td></tr>
+      <tr><td>V vs IV</td><td>R$ 36.000</td><td>R$ 3.300</td><td class="negativo">9,2%</td><td>✗ Rejeitar V</td></tr>
+    </tbody>
+  </table>
+
+  <div class="passo"><strong>Decisão: Alternativa IV.</strong> O incremento de III para IV ainda gera retorno acima da TMA (12,5% &gt; 12%). O incremento de IV para V destrói valor (9,2% &lt; 12%). O resultado coincide com o maior VPL individual (R$ 21.584).</div>
+
+  </div>
+  </details>
+</div>
+
+<!-- ========== SECTION 3 ========== -->
+<h2 id="s3">3. Diferentes Níveis de Escala</h2>
+
+<div class="conceito">
+  <h4>O Problema de Escala</h4>
+  <p>Quando dois projetos mutuamente excludentes têm <strong>investimentos iniciais muito diferentes</strong>, a TIR e o VPL podem apontar decisões opostas. O VPL mede riqueza absoluta; a TIR mede retorno relativo. Com escalas distintas, um projeto pode ter TIR maior mas criar menos valor absoluto.</p>
+</div>
+
+<h3>Fluxo de Caixa Incremental</h3>
+<p>A solução é decompor o projeto maior em dois componentes:</p>
+
+<div class="formula">
+\[ B = A + (B - A) \]
+\[ \text{Calcular a TIR do fluxo } (B - A) \text{ e comparar com a TMA} \]
+</div>
+
+<p>Se \(TIR_{B-A} > TMA\): o investimento incremental cria valor → escolher B.<br>
+Se \(TIR_{B-A} < TMA\): o investimento incremental destrói valor → escolher A.</p>
+
+<h3>Taxa de Fischer</h3>
+<div class="destaque">
+  A <strong>Taxa de Fischer</strong> é a TMA para a qual \(\text{VPL}_A = \text{VPL}_B\). Abaixo dessa taxa, o projeto de maior escala é melhor; acima dela, o de menor escala pode ser preferível. Coincide com a TIR do fluxo incremental \((B - A)\).
+</div>
+
+<!-- EXEMPLO 3 -->
+<div class="exemplo">
+  <h4>Exemplo 3 — Conflito de escala entre Projetos A e B</h4>
+  <div class="equip-card">
+    <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Small factory A -->
+      <rect x="3" y="30" width="18" height="18" rx="1" fill="#CBD5E1"/>
+      <rect x="6" y="24" width="12" height="8" rx="1" fill="#94A3B8"/>
+      <rect x="8" y="34" width="5" height="7" fill="#64748B"/>
+      <rect x="15" y="34" width="3" height="7" fill="#64748B"/>
+      <!-- Bigger factory B -->
+      <rect x="26" y="24" width="26" height="24" rx="1" fill="#1B6FB8" opacity=".8"/>
+      <rect x="29" y="16" width="18" height="10" rx="1" fill="#1455A0" opacity=".8"/>
+      <rect x="31" y="30" width="7" height="10" fill="#0F3D6E"/>
+      <rect x="41" y="30" width="7" height="10" fill="#0F3D6E"/>
+      <!-- Arrow -->
+      <text x="22" y="43" font-size="10" fill="#1B7F4F" font-weight="bold">→</text>
+      <text x="2" y="52" font-size="8" fill="#555">A: R$100k</text>
+      <text x="26" y="52" font-size="8" fill="#1B6FB8">B: R$150k</text>
+    </svg>
+    <div class="equip-info">
+      <strong>Projetos de expansão industrial — TMA = 15% a.a.</strong>
+      Dois projetos mutuamente excludentes com horizontes de 10 anos.
+    </div>
+  </div>
+
+  <div style="overflow-x:auto">
+  <table>
+    <thead><tr><th>Período</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th></tr></thead>
+    <tbody>
+      <tr><td><strong>A</strong></td><td>(100.000)</td><td>9.500</td><td>14.500</td><td>19.500</td><td>24.500</td><td>29.500</td><td>34.500</td><td>39.500</td><td>44.500</td><td>49.500</td><td>54.500</td></tr>
+      <tr><td><strong>B</strong></td><td>(150.000)</td><td>30.000</td><td>30.000</td><td>30.000</td><td>40.000</td><td>40.000</td><td>40.000</td><td>40.000</td><td>50.000</td><td>50.000</td><td>50.000</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <details class="resolucao">
+  <summary>Ver resolução</summary>
+  <div class="resolucao-corpo">
+
+  <div class="passo"><strong>VPL e TIR individuais</strong> (TMA = 15%):</div>
+  <div class="grid-2">
+    <div class="card"><strong>Projeto A</strong><br>VPL = R$ 32.576<br>TIR = 20,92%</div>
+    <div class="card"><strong>Projeto B</strong><br>VPL = R$ 36.502<br>TIR = 20,44%</div>
+  </div>
+
+  <p><strong>Conflito:</strong> pela TIR, escolheríamos A (20,92% &gt; 20,44%). Pelo VPL, escolheríamos B (R$36.502 &gt; R$32.576).</p>
+
+  <div class="passo"><strong>Fluxo incremental B − A:</strong></div>
+  <div style="overflow-x:auto">
+  <table>
+    <thead><tr><th>Período</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th></tr></thead>
+    <tbody>
+      <tr><td><strong>B − A</strong></td><td>(50.000)</td><td>20.500</td><td>15.500</td><td>10.500</td><td>15.500</td><td>10.500</td><td>5.500</td><td>500</td><td>5.500</td><td>500</td><td>(4.500)</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="passo"><strong>TIR incremental = 18,25%</strong> &gt; TMA (15%) → o incremento de R$ 50.000 cria valor → <strong>Escolher B</strong>.</div>
+
+  <div class="passo"><strong>Taxa de Fischer = 18,35%</strong> — ponto onde VPL<sub>A</sub> = VPL<sub>B</sub>. Para TMA &gt; 18,35%, o projeto A passa a ser preferível.</div>
+
+  <table>
+    <thead><tr><th>TMA</th><th>VPL Projeto A</th><th>VPL Projeto B</th><th>Preferência</th></tr></thead>
+    <tbody>
+      <tr><td>12%</td><td>R$ 54.948</td><td>R$ 62.855</td><td>B</td></tr>
+      <tr><td>15%</td><td>R$ 32.576</td><td>R$ 36.502</td><td>B</td></tr>
+      <tr><td>18%</td><td>R$ 14.456</td><td>R$ 14.846</td><td>B (≈ indiferente)</td></tr>
+      <tr><td>19%</td><td>R$ 9.191</td><td>R$ 8.491</td><td><strong>A</strong></td></tr>
+      <tr><td>21%</td><td>(R$ 352)</td><td>(R$ 3.115)</td><td>Ambos negativos</td></tr>
+    </tbody>
+  </table>
+
+  </div>
+  </details>
+</div>
+
+<!-- ========== SECTION 4 ========== -->
+<h2 id="s4">4. Projetos com Vida Útil Distintos</h2>
+
+<div class="conceito">
+  <h4>O Problema do Horizonte Temporal</h4>
+  <p>Quando projetos têm <strong>vidas úteis diferentes</strong>, o VPL não é diretamente comparável: um projeto de 8 anos "oferece" mais períodos de benefício do que um de 4 anos. A forma de tratar esse problema depende da intenção de <em>continuidade</em> da atividade.</p>
+</div>
+
+<div class="grid-2">
+  <div class="card">
+    <h4>Caso 1 — Descontinuidade</h4>
+    <p>Os projetos serão encerrados ao término de suas vidas úteis. Os objetivos foram alcançados e não há necessidade de reposição. Nesse caso, a <strong>comparação direta do VPL é válida</strong>, mesmo com vidas distintas.</p>
+  </div>
+  <div class="card">
+    <h4>Caso 2 — Continuidade</h4>
+    <p>A atividade continuará após o término do projeto. O equipamento precisará ser reposto. A comparação direta do VPL é inadequada — os benefícios são medidos em horizontes distintos.</p>
+  </div>
+</div>
+
+<h3>Solução 1 — Repetição pelo MMC</h3>
+<p>Repetir os fluxos de caixa de cada projeto até o Mínimo Múltiplo Comum (MMC) das vidas úteis, criando um horizonte idêntico. Limitação: se os projetos tiverem 5, 6 e 7 anos, o MMC é 210 anos — inviável na prática.</p>
+
+<h3>Solução 2 — Valor Uniforme Equivalente (VUE)</h3>
+<p>Converte o VPL em uma anuidade anual equivalente, permitindo comparar projetos de qualquer vida útil sem repetição:</p>
+
+<div class="formula">
+\[ VUE = \frac{VPL}{(P/A;\,i;\,n)} = VPL \times (A/P;\,i;\,n) \]
+onde \quad (A/P;\,i;\,n) = \frac{i(1+i)^n}{(1+i)^n - 1}
+</div>
+
+<p>O projeto com <strong>maior VUE</strong> é o preferível em situações de continuidade. O método de repetição e o VUE conduzem à mesma decisão.</p>
+
+<!-- EXEMPLO 4 -->
+<div class="exemplo">
+  <h4>Exemplo 4 — Comparação com descontinuidade e continuidade</h4>
+  <div class="equip-card">
+    <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Timeline A: 8 bars -->
+      <rect x="3" y="38" width="5" height="10" rx="1" fill="#CBD5E1"/>
+      <rect x="10" y="33" width="5" height="15" rx="1" fill="#CBD5E1"/>
+      <rect x="17" y="28" width="5" height="20" rx="1" fill="#CBD5E1"/>
+      <rect x="24" y="23" width="5" height="25" rx="1" fill="#94A3B8"/>
+      <!-- Timeline B: 4 bars, taller -->
+      <rect x="33" y="28" width="5" height="20" rx="1" fill="#1B6FB8" opacity=".7"/>
+      <rect x="40" y="20" width="5" height="28" rx="1" fill="#1B6FB8" opacity=".7"/>
+      <rect x="47" y="13" width="5" height="35" rx="1" fill="#1B6FB8" opacity=".9"/>
+      <line x1="2" y1="48" x2="54" y2="48" stroke="#888" stroke-width="1.5"/>
+      <text x="2" y="56" font-size="8" fill="#555">A (8a)</text>
+      <text x="33" y="56" font-size="8" fill="#1B6FB8">B (4a)</text>
+    </svg>
+    <div class="equip-info">
+      <strong>Projetos com horizontes distintos — TMA = 13,5% a.a.</strong>
+      Projeto A: vida útil de 8 anos, fluxos de R$ 26.000/ano. Projeto B: vida útil de 4 anos, fluxos de R$ 40.000/ano. Investimento inicial idêntico: R$ 100.000.
+    </div>
+  </div>
+
+  <table>
+    <thead><tr><th>Período</th><th>Projeto A</th><th>Projeto B</th></tr></thead>
+    <tbody>
+      <tr><td>0</td><td>(R$ 100.000)</td><td>(R$ 100.000)</td></tr>
+      <tr><td>1</td><td>R$ 26.000</td><td>R$ 40.000</td></tr>
+      <tr><td>2</td><td>R$ 26.000</td><td>R$ 40.000</td></tr>
+      <tr><td>3</td><td>R$ 26.000</td><td>R$ 40.000</td></tr>
+      <tr><td>4</td><td>R$ 26.000</td><td>R$ 40.000</td></tr>
+      <tr><td>5–8</td><td>R$ 26.000/ano</td><td>—</td></tr>
+    </tbody>
+  </table>
+
+  <details class="resolucao">
+  <summary>Ver resolução</summary>
+  <div class="resolucao-corpo">
+
+  <div class="passo"><strong>VPL individuais</strong> (TMA = 13,5%):<br>
+  \((P/A;\,13{,}5\%;\,8) = 4{,}718\) e \((P/A;\,13{,}5\%;\,4) = 2{,}944\)</div>
+
+  <div class="grid-2">
+    <div class="card">
+      <strong>Projeto A (8 anos)</strong><br>
+      VPL = −100.000 + 26.000 × 4,718 = <span style="color:var(--verde)"><strong>R$ 22.661</strong></span>
+    </div>
+    <div class="card">
+      <strong>Projeto B (4 anos)</strong><br>
+      VPL = −100.000 + 40.000 × 2,944 = <span style="color:var(--azul2)"><strong>R$ 17.753</strong></span>
+    </div>
+  </div>
+
+  <div class="passo"><strong>Caso 1 — Descontinuidade:</strong> Sem necessidade de reposição, comparar VPLs diretamente.<br>
+  VPL<sub>A</sub> = R$ 22.661 &gt; VPL<sub>B</sub> = R$ 17.753 → <strong>Projeto A é melhor.</strong></div>
+
+  <hr>
+
+  <div class="passo"><strong>Caso 2 — Continuidade (repetição de B no ano 4):</strong><br>
+  No ano 4, o Projeto B é reiniciado: novo investimento de R$ 100.000, gerando mais 4 anos de R$ 40.000.<br>
+  O VPL desse segundo ciclo, trazido ao momento zero: \(17.753 \times (P/F;\,13{,}5\%;\,4) = 17.753 \times 0{,}602 = \text{R\$ }10.698\)
+  </div>
+
+  <div class="passo">
+  VPL<sub>B repetido</sub> = 17.753 + 10.698 = <strong>R$ 28.451</strong> &gt; VPL<sub>A</sub> = R$ 22.661 → <strong>Projeto B é melhor.</strong>
+  </div>
+
+  <hr>
+
+  <div class="passo"><strong>VUE (alternativa mais prática):</strong><br>
+  \((A/P;\,13{,}5\%;\,8) = 0{,}2119\) e \((A/P;\,13{,}5\%;\,4) = 0{,}3398\)</div>
+
+  <div class="grid-2">
+    <div class="card">
+      <strong>VUE<sub>A</sub></strong> = 22.661 × 0,2119 = <span style="color:var(--verde)"><strong>R$ 4.803/ano</strong></span>
+    </div>
+    <div class="card">
+      <strong>VUE<sub>B</sub></strong> = 17.753 × 0,3398 = <span style="color:var(--azul2)"><strong>R$ 6.031/ano</strong></span>
+    </div>
+  </div>
+
+  <div class="passo">Como VUE<sub>B</sub> (R$ 6.031) &gt; VUE<sub>A</sub> (R$ 4.803), o Projeto B gera maior benefício anual equivalente → <strong>Projeto B é preferível em situação de continuidade</strong>. O VUE confirma o resultado da repetição.</div>
+
+  </div>
+  </details>
+</div>
+
+<!-- ========== QUESTÕES ========== -->
+<h2 id="questoes">Questões para Sala de Aula</h2>
+
+<div class="questao">
+  <span class="questao-num">Questão 1 — Restrição de Capital</span>
+  <p>A empresa <strong>Nordeste S.A.</strong> pretende expandir suas operações no interior do Ceará por meio da instalação de miniusinas solares. O conselho administrativo aprovou quatro projetos de investimento, mas informou que há uma restrição orçamentária máxima de <strong>R$ 4.500.000</strong> para o próximo exercício. A TMA da empresa é de <strong>11% ao ano</strong>.</p>
+
+  <table>
+    <thead><tr><th>Projeto</th><th>Investimento Inicial</th><th>Entrada Líquida Anual</th><th>Vida Útil</th><th>Valor Residual</th></tr></thead>
+    <tbody>
+      <tr><td>A</td><td>R$ 1.200.000</td><td>R$ 390.000</td><td>5 anos</td><td>R$ 120.000</td></tr>
+      <tr><td>B</td><td>R$ 1.800.000</td><td>R$ 520.000</td><td>6 anos</td><td>R$ 180.000</td></tr>
+      <tr><td>C</td><td>R$ 2.000.000</td><td>R$ 610.000</td><td>5 anos</td><td>R$ 150.000</td></tr>
+      <tr><td>D</td><td>R$ 2.400.000</td><td>R$ 760.000</td><td>4 anos</td><td>R$ 100.000</td></tr>
+    </tbody>
+  </table>
+
+  <p>a) Calcule o VPL e a TIR de cada projeto.<br>
+  b) Indique quais projetos são economicamente viáveis individualmente.<br>
+  c) Monte as carteiras possíveis respeitando a restrição de capital de R$ 4.500.000.<br>
+  d) Determine qual carteira maximiza a geração de valor para a empresa.</p>
+</div>
+
+<div class="questao">
+  <span class="questao-num">Questão 2 — Escala Distinta</span>
+  <p>Uma <strong>cafeteria universitária</strong> deseja automatizar parte do atendimento. A empresa avalia duas alternativas mutuamente excludentes com TMA de <strong>14% ao ano</strong>:</p>
+
+  <table>
+    <thead><tr><th>Ano</th><th>Projeto A</th><th>Projeto B</th></tr></thead>
+    <tbody>
+      <tr><td>0</td><td>(R$ 20.000)</td><td>(R$ 32.000)</td></tr>
+      <tr><td>1</td><td>R$ 6.500</td><td>R$ 9.000</td></tr>
+      <tr><td>2</td><td>R$ 7.000</td><td>R$ 10.000</td></tr>
+      <tr><td>3</td><td>R$ 7.500</td><td>R$ 11.500</td></tr>
+      <tr><td>4</td><td>R$ 8.000</td><td>R$ 12.500</td></tr>
+    </tbody>
+  </table>
+
+  <p>a) Calcule o VPL de cada projeto.<br>
+  b) Calcule a TIR de cada projeto.<br>
+  c) Há conflito entre os critérios VPL e TIR? Explique.<br>
+  d) Calcule o fluxo incremental B − A e sua TIR incremental.<br>
+  e) Com base na análise incremental, qual projeto deve ser escolhido?</p>
+</div>
+
+<!-- ========== GABARITO ========== -->
+<div class="gabarito" id="gabarito">
+  <h3>Gabarito</h3>
+
+  <div class="gabarito-item">
+    <strong>Questão 1 — Nordeste S.A.</strong>
+    <p><em>(a) VPL:</em> Usando \((P/A;\,11\%;\,n)\) e \((P/F;\,11\%;\,n)\):</p>
+    <ul>
+      <li>VPL<sub>A</sub> = −1.200.000 + 390.000×3,696 + 120.000×0,593 ≈ <strong>R$ 312.600</strong></li>
+      <li>VPL<sub>B</sub> = −1.800.000 + 520.000×4,231 + 180.000×0,535 ≈ <strong>R$ 496.100</strong></li>
+      <li>VPL<sub>C</sub> = −2.000.000 + 610.000×3,696 + 150.000×0,593 ≈ <strong>R$ 343.600</strong></li>
+      <li>VPL<sub>D</sub> = −2.400.000 + 760.000×3,102 + 100.000×0,659 ≈ <strong>R$ 23.700</strong></li>
+    </ul>
+    <p>TIR aproximada: A ≈ 22%, B ≈ 22%, C ≈ 19%, D ≈ 12%. Todos viáveis (VPL &gt; 0).</p>
+    <p><em>(c)/(d) Carteiras dentro de R$ 4.500.000:</em></p>
+    <table>
+      <thead><tr><th>Carteira</th><th>Investimento</th><th>VPL Total</th></tr></thead>
+      <tbody>
+        <tr><td>A + B</td><td>R$ 3.000.000</td><td>R$ 808.700</td></tr>
+        <tr style="background:#E8F7EE"><td><strong>B + C ★</strong></td><td><strong>R$ 3.800.000</strong></td><td><strong>R$ 839.700</strong></td></tr>
+        <tr><td>B + D</td><td>R$ 4.200.000</td><td>R$ 519.800</td></tr>
+        <tr><td>C + D</td><td>R$ 4.400.000</td><td>R$ 367.300</td></tr>
+      </tbody>
+    </table>
+    <p><strong>Carteira ótima: B + C</strong> com VPL total de R$ 839.700 e investimento de R$ 3.800.000 ≤ R$ 4.500.000.</p>
+  </div>
+
+  <div class="gabarito-item">
+    <strong>Questão 2 — Cafeteria universitária</strong>
+    <ul>
+      <li>VPL<sub>A</sub> = −20.000 + 6.500/1,14 + 7.000/1,14² + 7.500/1,14³ + 8.000/1,14⁴ ≈ <strong>R$ +887</strong> (viável)</li>
+      <li>VPL<sub>B</sub> = −32.000 + 9.000/1,14 + 10.000/1,14² + 11.500/1,14³ + 12.500/1,14⁴ ≈ <strong>−R$ 1.247</strong> (inviável!)</li>
+      <li>TIR<sub>A</sub> ≈ 16,1% &gt; 14% ✓ &nbsp;|&nbsp; TIR<sub>B</sub> ≈ 12,2% &lt; 14% ✗</li>
+    </ul>
+    <p><em>(c)</em> Não há conflito — ambos os critérios indicam A. O projeto B tem VPL negativo e TIR abaixo da TMA, portanto é inviável independentemente da escala.</p>
+    <p><em>(d)</em> Fluxo incremental B−A: t=0: (−12.000); t=1: +2.500; t=2: +3.000; t=3: +4.000; t=4: +4.500.<br>
+    VPL incremental ≈ −R$ 2.135 &lt; 0 &nbsp;|&nbsp; TIR incremental ≈ 8% &lt; 14%.</p>
+    <p><em>(e)</em> <strong>Escolher o Projeto A.</strong> Mesmo sem o conflito clássico, a análise incremental confirma: o investimento adicional de R$ 12.000 no Projeto B não se justifica financeiramente.</p>
+  </div>
+</div>
+
+</div>
+</body>
+</html>
